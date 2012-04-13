@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import android.util.Log;
 
@@ -44,6 +45,8 @@ public class LoginTask implements Runnable{
 		
 		try {
 			
+			String charset = "UTF-8";
+			
 			URL url = new URL(loginURL);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			
@@ -52,13 +55,27 @@ public class LoginTask implements Runnable{
 			con.setConnectTimeout(15000 /*Milliseconds*/);
 			
 			con.setRequestMethod("POST");
-			con.addRequestProperty("username", user);
-			con.addRequestProperty("password", password);
+			
+			con.setRequestProperty("ContentType", "application/x-www-form-urlencoded");
+			con.setRequestProperty("Accept-Charset", charset);
+			
+			String query = "user=" + URLEncoder.encode(user, charset);
+			query = query + "&password=" + URLEncoder.encode(password, "UTF-8");
 			
 			//TODO: Find out what this is
 			con.setDoInput(true);
 			
-			con.connect();
+			OutputStream output = null;
+			try {
+			     output = con.getOutputStream();
+			     output.write(query.getBytes(charset));
+			} finally {
+			     if (output != null) try { output.close(); } catch (IOException logOrIgnore) {}
+			}
+			
+			InputStream response = con.getInputStream();
+			
+			
 			
 			//TODO: Figure out how to read the response that comes back!
 			
