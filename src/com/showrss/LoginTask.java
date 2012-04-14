@@ -57,13 +57,15 @@ public class LoginTask implements Runnable{
 			con.setRequestMethod("POST");
 			
 			con.setRequestProperty("ContentType", "application/x-www-form-urlencoded");
+			con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 			con.setRequestProperty("Accept-Charset", charset);
+			con.setRequestProperty("Accept-Encoding", "text/html,application/xhtml+xml,application/xml");
+			con.setRequestProperty("Content-Length", "32");
 			
-			String query = "user=" + URLEncoder.encode(user, charset);
+			String query = "username=" + URLEncoder.encode(user, charset);
 			query = query + "&password=" + URLEncoder.encode(password, "UTF-8");
 			
-			//TODO: Find out what this is
-			con.setDoInput(true);
+			con.setDoOutput(true);
 			
 			OutputStream output = null;
 			try {
