@@ -8,6 +8,7 @@ import java.util.concurrent.RejectedExecutionException;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Button;
 
 import com.showrss.LoginTask;
 import com.showrss.R;
@@ -23,6 +24,8 @@ public class LoginActivity extends Activity {
 	
 	private String username;
 	private String password;
+	
+	private Button loginButton;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,7 @@ public class LoginActivity extends Activity {
 	}
 
 	private void setupViews(){
-		this.findViewById(R.id.loginButton);
+		loginButton = (Button)this.findViewById(R.id.loginButton);
 	}
 	
 
