@@ -8,12 +8,14 @@ import java.util.concurrent.RejectedExecutionException;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.showrss.LoginTask;
 import com.showrss.R;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements OnClickListener{
 
 	// Declarations for threading
 	private Handler guiThread;
@@ -31,16 +33,21 @@ public class LoginActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		
-		
-		
+	
 		this.initThreading();
+		this.setupViews();
+		this.setupListeners();
+		
 	}
 
 	private void setupViews(){
 		loginButton = (Button)this.findViewById(R.id.loginButton);
 	}
 	
+	
+	private void setupListeners(){
+		loginButton.setOnClickListener(this);
+	}
 
 	/**
 	 * Request the task to start after a short delay
@@ -89,6 +96,17 @@ public class LoginActivity extends Activity {
 
 			}
 		};
+	}
+
+	@Override
+	public void onClick(View arg0) {
+		if (arg0.getId() == R.id.loginButton){
+			this.username = "action";
+			this.password = "action3";
+			
+			queueUpdate(loginTask, 1);
+		}
+		
 	}
 
 }
