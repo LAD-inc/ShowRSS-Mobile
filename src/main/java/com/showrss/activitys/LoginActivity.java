@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.showrss.LoginTask;
 import com.showrss.R;
@@ -26,6 +27,8 @@ public class LoginActivity extends Activity implements OnClickListener{
 	
 	private String username;
 	private String password;
+	EditText uNameEdit;
+	EditText passEdit;
 	
 	private Button loginButton;
 
@@ -47,6 +50,8 @@ public class LoginActivity extends Activity implements OnClickListener{
 	
 	private void setupListeners(){
 		loginButton.setOnClickListener(this);
+		uNameEdit = (EditText)findViewById(R.id.username);
+		passEdit = (EditText)findViewById(R.id.password);
 	}
 
 	/**
@@ -101,8 +106,9 @@ public class LoginActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View arg0) {
 		if (arg0.getId() == R.id.loginButton){
-			this.username = "action";
-			this.password = "action3";
+			
+			this.username = uNameEdit.getText().toString();
+			this.password = passEdit.getText().toString();
 			
 			queueUpdate(loginTask, 1);
 		}

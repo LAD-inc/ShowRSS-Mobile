@@ -13,8 +13,11 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
 
 import android.util.Log;
 
@@ -49,8 +52,13 @@ public class LoginTask implements Runnable {
 
 		try {
 
+			// Set your params (stopping the redirect to read the headers)
+			HttpParams params = new BasicHttpParams();
+			HttpClientParams.setRedirecting(params, false);
+			
+			
 			// Create a new HttpClient and Post Header
-			HttpClient httpclient = new DefaultHttpClient();
+			HttpClient httpclient = new DefaultHttpClient(params);
 			HttpPost httppost = new HttpPost(loginURL);
 
 			// Add your data
@@ -58,12 +66,13 @@ public class LoginTask implements Runnable {
 			nameValuePairs.add(new BasicNameValuePair("username", this.userName));
 			nameValuePairs.add(new BasicNameValuePair("password", this.password));
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			
 
 			// Execute HTTP Post Request and get response
 			HttpResponse response = httpclient.execute(httppost);
 
 			Header[] y = response.getAllHeaders();
-
+			
 			System.out.println(y);
 
 			// TODO: Figure out how to read the response that comes back!
