@@ -4,8 +4,12 @@ package com.showrss;
 import java.io.*;
 
 import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -87,10 +91,14 @@ public class LoginTask implements Runnable {
 				}
 				else if (locationString.contains("err=user"))
 				{
-					Log.d(TAG, "Users does not exist");
+					Log.d(TAG, "User does not exist");
 					//TODO: Pop up an error
 				}
+				
+				return false;
 			}
+			
+			
 			System.out.println(y);
 
 			// TODO: Figure out how to read the response that comes back!
