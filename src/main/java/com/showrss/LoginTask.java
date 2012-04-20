@@ -73,6 +73,24 @@ public class LoginTask implements Runnable {
 
 			Header[] y = response.getAllHeaders();
 			
+			Header[] locations = response.getHeaders("location");
+			
+			String locationString = locations[0].toString();
+			
+			System.out.println(locationString);
+			if (locationString.contains("err="))
+			{
+				if (locationString.contains("err=password"))
+				{
+					Log.d(TAG, "Users password is incorrect");
+					//TODO: Pop up an error
+				}
+				else if (locationString.contains("err=user"))
+				{
+					Log.d(TAG, "Users does not exist");
+					//TODO: Pop up an error
+				}
+			}
 			System.out.println(y);
 
 			// TODO: Figure out how to read the response that comes back!
