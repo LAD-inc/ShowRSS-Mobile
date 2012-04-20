@@ -15,15 +15,19 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.HttpClientParams;
+import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 
 import android.util.Log;
+import android.webkit.CookieSyncManager;
 
 public class LoginTask implements Runnable {
 	private static final String TAG = "LoginTask";
@@ -43,7 +47,7 @@ public class LoginTask implements Runnable {
 	private boolean attemptLogin(String user, String pass) {
 		Log.d(TAG, "Attempting to login as: " + user);
 
-		// Should we throw and exception on failed logins?
+		// Should we throw an exception on failed logins?
 		if (!validateUserName(user)) {
 			Log.d(TAG, "Invalid Login name");
 			return false;
@@ -55,14 +59,11 @@ public class LoginTask implements Runnable {
 		String loginURL = "http://showrss.karmorra.info/?cs=login";
 
 		try {
-
-			// Set your params (stopping the redirect to read the headers)
-			HttpParams params = new BasicHttpParams();
-			HttpClientParams.setRedirecting(params, false);
+			// Get the HttpClient and Post Header
+			HttpClient httpclient = HttpClientHelper.getHttpClient();
 			
+            String responseBeforeLogin = HtmlCode.GetHtmlCode("http://showrss.karmorra.info/?cs=schedule&mode=std&print=aired");
 			
-			// Create a new HttpClient and Post Header
-			HttpClient httpclient = new DefaultHttpClient(params);
 			HttpPost httppost = new HttpPost(loginURL);
 
 			// Add your data
@@ -75,7 +76,7 @@ public class LoginTask implements Runnable {
 			// Execute HTTP Post Request and get response
 			HttpResponse response = httpclient.execute(httppost);
 
-			Header[] y = response.getAllHeaders();
+			//Header[] y = response.getAllHeaders();
 			
 			Header[] locations = response.getHeaders("location");
 			
@@ -99,9 +100,9 @@ public class LoginTask implements Runnable {
 			}
 			
 			
-			System.out.println(y);
-
-			// TODO: Figure out how to read the response that comes back!
+			String responseafterLogin = HtmlCode.GetHtmlCode("http://showrss.karmorra.info/?cs=schedule&mode=std&print=aired");
+			
+			System.out.println(responseafterLogin);
 
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
