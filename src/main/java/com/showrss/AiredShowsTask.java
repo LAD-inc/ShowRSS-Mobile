@@ -8,7 +8,7 @@ public class AiredShowsTask {
 	
 	public void getShows() throws IOException
 	{
-		String HtmlCode = HtmlCode.GetHtmlCode(airedShowsUrl);
+		String htmlCode = HtmlCode.GetHtmlCode(airedShowsUrl);
 		return;
 	}
 	

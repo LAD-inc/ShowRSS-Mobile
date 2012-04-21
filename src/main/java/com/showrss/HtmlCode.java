@@ -29,7 +29,7 @@ public class HtmlCode {
         return htmlCode;
 	}
 	
-	private static boolean checkLoginStatus(String htmlCode)
+	public static boolean checkLoginStatus(String htmlCode)
 	{
 		//this text should not be present if the user is trying to access a page while they are logged in.
 		String loginText = "<a href=\"/?cs=login\" class=\"userlogin pad\">login</a>";

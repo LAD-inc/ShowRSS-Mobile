@@ -6,15 +6,18 @@ import java.util.concurrent.Future;
 import java.util.concurrent.RejectedExecutionException;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.CookieSyncManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.showrss.LoginTask;
 import com.showrss.R;
+import com.showrss.User;
 
 public class LoginActivity extends Activity implements OnClickListener{
 
@@ -35,12 +38,37 @@ public class LoginActivity extends Activity implements OnClickListener{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		CookieSyncManager.createInstance(this);
+		
+		
+		if ("" != User.getUserName())
+		{
+			//user is already looged in
+			Intent myIntent = new Intent(this, MenuActivity.class);
+			startActivity(myIntent);
+		}
+		
 		setContentView(R.layout.login);
 	
 		this.initThreading();
 		this.setupViews();
 		this.setupListeners();
 		
+	}
+	
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		CookieSyncManager.getInstance().startSync();
+	}
+	
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		CookieSyncManager.getInstance().stopSync();
 	}
 
 	private void setupViews(){

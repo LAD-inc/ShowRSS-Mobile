@@ -26,6 +26,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 
+import com.showrss.activitys.MenuActivity;
+
+import android.content.Intent;
 import android.util.Log;
 import android.webkit.CookieSyncManager;
 
@@ -40,7 +43,10 @@ public class LoginTask implements Runnable {
 
 	@Override
 	public void run() {
-		attemptLogin(userName, password);
+		if (attemptLogin(userName, password))
+		{
+
+		}
 
 	}
 
@@ -61,8 +67,6 @@ public class LoginTask implements Runnable {
 		try {
 			// Get the HttpClient and Post Header
 			HttpClient httpclient = HttpClientHelper.getHttpClient();
-			
-            String responseBeforeLogin = HtmlCode.GetHtmlCode("http://showrss.karmorra.info/?cs=schedule&mode=std&print=aired");
 			
 			HttpPost httppost = new HttpPost(loginURL);
 
@@ -100,9 +104,10 @@ public class LoginTask implements Runnable {
 			}
 			
 			
-			String responseafterLogin = HtmlCode.GetHtmlCode("http://showrss.karmorra.info/?cs=schedule&mode=std&print=aired");
-			
-			System.out.println(responseafterLogin);
+			if("" != User.getUserName())
+			{
+				return true;
+			}
 
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -111,7 +116,7 @@ public class LoginTask implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return true;
+		return false;
 	}
 
 	// ShowRSS rules on valid user names:

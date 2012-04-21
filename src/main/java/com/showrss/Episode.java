@@ -1,14 +1,18 @@
 package com.showrss;
 
-public class Episodes {
+import java.util.Date;
+
+public class Episode {
 	
 	private String showName;
 	private String episode;
+	private Date airDate;
 	
-	public Episodes(String showName, String episode) {
+	public Episode(String showName, String episode, Date date) {
 		super();
 		this.showName = showName;
 		this.episode = episode;
+		this.airDate = date;
 	}
 
 	public String getShowName() {
@@ -25,6 +29,14 @@ public class Episodes {
 
 	public void setEpisode(String episode) {
 		this.episode = episode;
+	}
+
+	public Date getDate() {
+		return airDate;
+	}
+
+	public void setDate(Date date) {
+		this.airDate = date;
 	}
 
 	
