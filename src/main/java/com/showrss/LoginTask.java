@@ -4,35 +4,18 @@ package com.showrss;
 import java.io.*;
 
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.params.HttpClientParams;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
-
-import com.showrss.activitys.MenuActivity;
-
-import android.content.Intent;
 import android.util.Log;
-import android.webkit.CookieSyncManager;
 
-public class LoginTask implements Runnable {
+public class LoginTask{
 	private static final String TAG = "LoginTask";
 	private final String userName, password;
 
@@ -40,21 +23,21 @@ public class LoginTask implements Runnable {
 		this.userName = userName;
 		this.password = password;
 	}
-
-	@Override
-	public void run() {
-		if (attemptLogin(userName, password))
-		{
-
-		}
-
-	}
-
-	private boolean attemptLogin(String user, String pass) {
-		Log.d(TAG, "Attempting to login as: " + user);
+//
+//	@Override
+//	public void run() {
+//		if (attemptLogin(userName, password))
+//		{
+//
+//		}
+//
+//	}
+	
+	public boolean attemptLogin() {
+		Log.d(TAG, "Attempting to login as: " + this.userName);
 
 		// Should we throw an exception on failed logins?
-		if (!validateUserName(user)) {
+		if (!validateUserName(this.password)) {
 			Log.d(TAG, "Invalid Login name");
 			return false;
 		}

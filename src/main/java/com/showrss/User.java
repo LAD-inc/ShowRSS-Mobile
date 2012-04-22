@@ -7,10 +7,10 @@ import java.util.regex.Pattern;
 public class User {
 
 	public static String userName;
+	public static String url = "http://showrss.karmorra.info/";
 	
 	public static String getUserName()
 	{
-		String url = "http://showrss.karmorra.info/";
 		String htmlCode = "";
 		try 
 		{

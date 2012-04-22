@@ -1,14 +1,10 @@
 package com.showrss.activitys;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.RejectedExecutionException;
-
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.CookieSyncManager;
@@ -22,12 +18,6 @@ import com.showrss.User;
 public class LoginActivity extends Activity implements OnClickListener{
 
 	// Declarations for threading
-	private Handler guiThread;
-	private ExecutorService transThread;
-	@SuppressWarnings("rawtypes")
-	private Future transPending;
-	private Runnable loginTask;
-	
 	private String username;
 	private String password;
 	EditText uNameEdit;
@@ -45,13 +35,12 @@ public class LoginActivity extends Activity implements OnClickListener{
 		if ("" != User.getUserName())
 		{
 			//user is already looged in
-			Intent myIntent = new Intent(this, MenuActivity.class);
-			startActivity(myIntent);
+			changeToMenu();
 		}
 		
 		setContentView(R.layout.login);
 	
-		this.initThreading();
+//		this.initThreading();
 		this.setupViews();
 		this.setupListeners();
 		
@@ -82,53 +71,15 @@ public class LoginActivity extends Activity implements OnClickListener{
 		passEdit = (EditText)findViewById(R.id.password);
 	}
 
-	/**
-	 * Request the task to start after a short delay
-	 * 
-	 * @param task
-	 * @param delayMillis
-	 */
-	private void queueUpdate(Runnable task, long delayMillis) {
-		// Cancel previous update if it hasn't started yet
-		this.guiThread.removeCallbacks(task);
-		// Start an update if nothing happens after a few milliseconds
-		this.guiThread.postDelayed(task, delayMillis);
-	}
 	
-	
-
-	/**
-	 * Sets up the login task so it can be ran
-	 * 
-	 */
-	private void initThreading() {
-		this.guiThread = new Handler();
-		this.transThread = Executors.newSingleThreadExecutor();
-
-		this.loginTask = new Runnable() {
-			@Override
-			public void run() {
-
-				// Cancel previous login task
-				if (LoginActivity.this.transPending != null) {
-					LoginActivity.this.transPending.cancel(true);
-				}
-
-				// TODO:Let user know we're doing something
-
-				// Begin the login request but don't wait for it
-
-				try {
-					
-					LoginTask loginTask = new LoginTask(LoginActivity.this.username, LoginActivity.this.password);
-					LoginActivity.this.transPending = LoginActivity.this.transThread.submit(loginTask);
-				} catch (RejectedExecutionException e) {
-					// Unable to start new task
-					//TODO: ADD Error
-				}
-
-			}
-		};
+	public void changeToMenu()
+	{
+		Log.d("LoginActivity", "Changing to Menu");
+		
+		CookieSyncManager.getInstance().sync();
+		
+		Intent myIntent = new Intent(this, MenuActivity.class);
+		startActivity(myIntent);
 	}
 
 	@Override
@@ -138,7 +89,44 @@ public class LoginActivity extends Activity implements OnClickListener{
 			this.username = uNameEdit.getText().toString();
 			this.password = passEdit.getText().toString();
 			
-			queueUpdate(loginTask, 1);
+			LoginTask login = new LoginTask(this.username, this.password);
+			new LoginToRss().execute(login);
+		}
+		
+	}
+	
+	class LoginToRss extends AsyncTask<LoginTask, Integer, String>
+	{
+
+		@Override
+		protected String doInBackground(LoginTask... login)
+		{
+		
+			LoginTask newLogin = login[0];
+			
+			//We should throw an exception from attempLogin so we can find why it failed.
+			if (newLogin.attemptLogin())
+			{
+				return "User Logged In";
+			}
+			else
+			{
+				return null;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(String result)
+		{
+			if (result != null )
+			{
+				changeToMenu();
+			}
+			else
+			{
+				//DoSomething
+			}
+				
 		}
 		
 	}
