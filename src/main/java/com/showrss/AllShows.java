@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 public class AllShows {
 	
 	public static Map<Object,String> allshows;
+	public static Map<Object,String> showNameAsKey;
 	public final static String url = "http://showrss.karmorra.info/?cs=browse";
 	
 	public static void populateAllShows()
@@ -36,10 +37,12 @@ public class AllShows {
 		Matcher m = p.matcher(htmlCode);
 		
 		allshows = new HashMap<Object, String>();
-		 
+		showNameAsKey = new HashMap<Object, String>();
+		
 		while (m.find())
 		{	
 			allshows.put(m.group(1), m.group(2));
+			showNameAsKey.put(m.group(2), m.group(1));
 		}
 	}
 }

@@ -9,10 +9,11 @@ import java.util.regex.Pattern;
 public class YourShows {
 	
 	public static List<Show> shows;
-	public List<Show> availableShows;
+	public static List<Show> availableShows;
 	private static String url = "http://showrss.karmorra.info/?cs=shows";
+	private static String addShowUrl = "http://showrss.karmorra.info/?cs=ajax&m=shows&func=add&show=";
 	
-	public List<Show> getShows()
+	public static List<Show> getShows()
 	{
 		String htmlCode = "";
 		try 
@@ -32,7 +33,7 @@ public class YourShows {
 		return shows;
 	}
 	
-	private void extractAvailableShows(String htmlCode)
+	private static void extractAvailableShows(String htmlCode)
 	{
 		Pattern p = Pattern.compile("<option value=\"([0-9]*)\">([^<]*)</option>");
 		Matcher m = p.matcher(htmlCode);
@@ -51,7 +52,7 @@ public class YourShows {
 		
 	}
 	
-	private void extractYourShows(String htmlCode)
+	private static void extractYourShows(String htmlCode)
 	{
 		Pattern p = Pattern.compile("onclick=\"rundelete\\(([0-9]+)\\);");
 		Matcher m = p.matcher(htmlCode);
@@ -83,4 +84,30 @@ public class YourShows {
 		
 		return showName;
 	}
+	
+	public static String[] availableShowsAsArray()
+	{
+		int i;
+		String[] showName = new String[availableShows.size()];
+		for(i = 0; i< availableShows.size(); i++)
+		{
+			showName[i] = availableShows.get(i).showName;
+		}
+		
+		return showName;
+	}
+	
+	public static void addShow(String showId)
+	{
+		try 
+		{
+			HtmlCode.GetHtmlCode(url + showId);
+		} 
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }

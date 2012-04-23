@@ -10,9 +10,14 @@ import com.showrss.YourShows;
 
 import android.app.Activity;
 import android.app.ExpandableListActivity;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.SimpleExpandableListAdapter;
+import android.widget.Spinner;
 
 public class YourShowsActivity extends ExpandableListActivity{
 	
@@ -30,9 +35,37 @@ public class YourShowsActivity extends ExpandableListActivity{
         
         AllShows.populateAllShows();
         
-        YourShows shows = new YourShows();
-        shows.getShows();
+        YourShows.getShows();
         
+        configureExpandapleList();	
+		configureSpinner();
+        
+        Log.d(TAG, YourShows.shows.toString());
+    }
+    
+    
+    //This does not work :(
+//    public void onClick(View v) {
+//		switch(v.getId())
+//		{
+//			case R.id.addShowButton:
+//				addShow();
+//				break;
+//		}
+//		
+//	}
+	
+	@SuppressWarnings({ "unchecked" })
+	private void addShow()
+	{
+        YourShows.getShows();
+        
+        configureExpandapleList();	
+		configureSpinner();
+	}
+    
+    private void configureExpandapleList()
+    {
 		SimpleExpandableListAdapter expListAdapter =
 				new SimpleExpandableListAdapter(
 					this,
@@ -46,8 +79,15 @@ public class YourShowsActivity extends ExpandableListActivity{
 					new int[] { R.id.showname }	// Data under the keys above go into these TextViews
 				);
 			setListAdapter( expListAdapter );
-        
-        Log.d(TAG, shows.shows.toString());
+    }
+    
+    private void configureSpinner()
+    {
+    	Spinner s = (Spinner) findViewById(R.id.newShowSpinner);
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		ArrayAdapter adapter = new ArrayAdapter(this,
+		android.R.layout.simple_spinner_item, YourShows.availableShowsAsArray());
+		s.setAdapter(adapter);
     }
 
 
@@ -94,4 +134,5 @@ private List createChildList() {
 	}
 	return result;
  }
+
 }
