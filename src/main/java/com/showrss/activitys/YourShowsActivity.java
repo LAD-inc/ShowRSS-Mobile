@@ -85,7 +85,7 @@ private List createChildList() {
 	for( int i = 0 ; i < children.length ; ++i ) {
 		//Second-level lists
 	  ArrayList secList = new ArrayList();
-	  for( int n = 0 ; n < children[i].length ; n += 2 ) {
+	  for( int n = 0 ; n < children[i].length ; n ++ ) {
 	    HashMap child = new HashMap();
 		child.put( "showName", children[i][n] );
 		secList.add( child );
