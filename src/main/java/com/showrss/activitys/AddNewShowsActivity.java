@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class AddNewShowsActivity extends Activity implements OnClickListener{
 
@@ -74,6 +75,8 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 		YourShows.addShow(selectedShow);
 		
 		configureSpinner();
+		Toast.makeText(this, "Added " + selectedShow, Toast.LENGTH_SHORT).show();
+		
 	}
 	
 	private void configureSpinner()
@@ -86,6 +89,7 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		ArrayAdapter adapter = new ArrayAdapter(this,
 		android.R.layout.simple_spinner_item, YourShows.availableShowsAsArray());
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		s.setAdapter(adapter);
 	}
 
