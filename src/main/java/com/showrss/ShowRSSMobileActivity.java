@@ -1,8 +1,6 @@
 package com.showrss;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.webkit.CookieSyncManager;
 
 public class ShowRSSMobileActivity extends Activity {
 //    /** Called when the activity is first created. */

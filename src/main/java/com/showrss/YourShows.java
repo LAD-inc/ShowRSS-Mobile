@@ -97,11 +97,12 @@ public class YourShows {
 		return showName;
 	}
 	
-	public static void addShow(String showId)
+	public static void addShow(String showName)
 	{
+		String showId = AllShows.showNameAsKey.get(showName);
 		try 
 		{
-			HtmlCode.GetHtmlCode(url + showId);
+			HtmlCode.GetHtmlCode(addShowUrl + showId);
 		} 
 		catch (IOException e) 
 		{

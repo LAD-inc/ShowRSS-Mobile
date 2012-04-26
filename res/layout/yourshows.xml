@@ -8,58 +8,8 @@
     <ExpandableListView
         android:id="@+id/android:list"
         android:layout_width="fill_parent"
-        android:layout_height="68dp"
+        android:layout_height="fill_parent"
         android:layout_weight="0.59" />
-
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.06" >
 
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.00"
-                android:paddingLeft="15dp"
-                android:paddingTop="25dp"
-                android:text="@string/addNewShows"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal" >
-
-            <Spinner
-                android:id="@+id/newShowSpinner"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="0.00" android:minWidth="250dp"/>
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal" >
-
-            <Button
-                android:id="@+id/addShowButton"
-                android:layout_width="113dp"
-                android:layout_height="wrap_content"
-                android:text="@string/addShow" />
-
-        </TableRow>
-    </TableLayout>
 
 </LinearLayout>

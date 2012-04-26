@@ -8,13 +8,9 @@ import com.showrss.AllShows;
 import com.showrss.R;
 import com.showrss.YourShows;
 
-import android.app.Activity;
 import android.app.ExpandableListActivity;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.Spinner;
@@ -38,7 +34,6 @@ public class YourShowsActivity extends ExpandableListActivity{
         YourShows.getShows();
         
         configureExpandapleList();	
-		configureSpinner();
         
         Log.d(TAG, YourShows.shows.toString());
     }
@@ -61,7 +56,6 @@ public class YourShowsActivity extends ExpandableListActivity{
         YourShows.getShows();
         
         configureExpandapleList();	
-		configureSpinner();
 	}
     
     private void configureExpandapleList()
@@ -81,14 +75,6 @@ public class YourShowsActivity extends ExpandableListActivity{
 			setListAdapter( expListAdapter );
     }
     
-    private void configureSpinner()
-    {
-    	Spinner s = (Spinner) findViewById(R.id.newShowSpinner);
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		ArrayAdapter adapter = new ArrayAdapter(this,
-		android.R.layout.simple_spinner_item, YourShows.availableShowsAsArray());
-		s.setAdapter(adapter);
-    }
 
 
 

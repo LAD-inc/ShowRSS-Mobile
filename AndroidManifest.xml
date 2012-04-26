@@ -21,6 +21,10 @@
             android:label="@string/app_name">
         </activity>
         <activity
+            android:name=".activitys.AddNewShowsActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
             android:name=".activitys.YourShowsActivity"
             android:label="@string/app_name">
         </activity>

@@ -10,6 +10,7 @@
     <string name="yourShows">Your Shows</string>
     <string name="airedEpisodes">Aired Episodes</string>
     <string name="upcomingEpisodes">Upcoming Episodes</string>
+    <string name="addNewShow">Add New Shows</string>
     <string name="addNewShows">Add New Shows:</string>
     <string name="addShow">Add Show</string>
 </resources>
