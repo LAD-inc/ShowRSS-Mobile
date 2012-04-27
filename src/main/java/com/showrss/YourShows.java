@@ -12,6 +12,8 @@ public class YourShows {
 	public static List<Show> availableShows;
 	private static String url = "http://showrss.karmorra.info/?cs=shows";
 	private static String addShowUrl = "http://showrss.karmorra.info/?cs=ajax&m=shows&func=add&show=";
+	private static String deleteShowUrl = "http://showrss.karmorra.info/?cs=ajax&m=shows&func=delete&show=";
+	private static String optsShowUrl = "http://showrss.karmorra.info/?cs=ajax&m=shows&func=opts&show=";
 	
 	public static List<Show> getShows()
 	{
@@ -110,5 +112,66 @@ public class YourShows {
 			e.printStackTrace();
 		}
 	}
+	
+	//Deletes the passes show from your list.
+	public static void deleteShow(String showName)
+	{
+		String showId = AllShows.showNameAsKey.get(showName);
+		try 
+		{
+			HtmlCode.GetHtmlCode(deleteShowUrl + showId);
+		} 
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//Deletes the passes show from your list.
+		public static boolean showSettings(String showName, boolean sd, boolean hd, boolean repack)
+		{
+			String showId = AllShows.showNameAsKey.get(showName);
+			int hasHd = 0;
+			int hasProper = 0;
+			
+			//if neither hd or sd or true
+			if (!(hd || sd))
+				return false;
+			
+			//Set hasHD
+			//0 = Only SD
+			//1 = Only Hd
+			//2 = both
+			
+			if (hd)
+				hasHd = 1;
+			
+			//if hd was true, doubling hasHd leaves hasHd at 2, while if hd was false it will be 0. Which is what we want here.
+			if(sd)
+				hasHd = hasHd*2;
+			
+			
+			//Set hasProper
+			//0 = Do not include repacks and proper
+			//1 = Include proper and repacks
+			
+			if (repack)
+				hasProper = 1;
+			
+			try 
+			{
+				HtmlCode.GetHtmlCode(	optsShowUrl + showId 
+										+ "&hashd=" + hasHd 
+										+ "&hasproper=" + hasProper );
+			} 
+			catch (IOException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}
 	
 }
