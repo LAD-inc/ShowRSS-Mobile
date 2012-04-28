@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.webkit.CookieSyncManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.showrss.LoginTask;
 import com.showrss.R;
@@ -71,6 +72,10 @@ public class LoginActivity extends Activity implements OnClickListener{
 		passEdit = (EditText)findViewById(R.id.password);
 	}
 
+	private void displayToast(String text)
+	{
+		Toast.makeText(this, "Error: " + text, Toast.LENGTH_SHORT).show();
+	}
 	
 	public void changeToMenu()
 	{
@@ -104,27 +109,21 @@ public class LoginActivity extends Activity implements OnClickListener{
 		
 			LoginTask newLogin = login[0];
 			
-			//We should throw an exception from attempLogin so we can find why it failed.
-			if (newLogin.attemptLogin())
-			{
-				return "User Logged In";
-			}
-			else
-			{
-				return null;
-			}
+			return newLogin.attemptLogin();
+
 		}
 		
 		@Override
 		protected void onPostExecute(String result)
 		{
-			if (result != null )
+			//Check if there was an error
+			if (result == null )
 			{
 				changeToMenu();
 			}
 			else
 			{
-				//DoSomething
+				displayToast(result);
 			}
 				
 		}

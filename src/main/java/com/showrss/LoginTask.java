@@ -23,23 +23,18 @@ public class LoginTask{
 		this.userName = userName;
 		this.password = password;
 	}
-//
-//	@Override
-//	public void run() {
-//		if (attemptLogin(userName, password))
-//		{
-//
-//		}
-//
-//	}
 	
-	public boolean attemptLogin() {
+	public String attemptLogin() {
+		
+		String error = "Unknown Error";
 		Log.d(TAG, "Attempting to login as: " + this.userName);
 
 		// Should we throw an exception on failed logins?
 		if (!validateUserName(this.password)) {
-			Log.d(TAG, "Invalid Login name");
-			return false;
+			
+			error = "Invalid Login Name";
+			Log.d(TAG, error);
+			return error;
 		}
 
 		// TODO: Get this working
@@ -74,22 +69,22 @@ public class LoginTask{
 			{
 				if (locationString.contains("err=password"))
 				{
-					Log.d(TAG, "Users password is incorrect");
-					//TODO: Pop up an error
+					error = "Password is incorrect";
 				}
 				else if (locationString.contains("err=user"))
 				{
-					Log.d(TAG, "User does not exist");
-					//TODO: Pop up an error
+					error = "User Name does not exist";
 				}
 				
-				return false;
+				Log.d(TAG, error);
+				return error;
+				
 			}
 			
 			
 			if("" != User.getUserName())
 			{
-				return true;
+				return null;
 			}
 
 		} catch (MalformedURLException e) {
@@ -99,7 +94,7 @@ public class LoginTask{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return false;
+		return error;
 	}
 
 	// ShowRSS rules on valid user names:
