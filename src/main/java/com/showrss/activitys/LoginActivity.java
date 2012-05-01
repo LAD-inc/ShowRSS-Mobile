@@ -1,6 +1,7 @@
 package com.showrss.activitys;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 	private String password;
 	EditText uNameEdit;
 	EditText passEdit;
+	ProgressDialog dialog;
 	
 	private Button loginButton;
 
@@ -45,6 +47,8 @@ public class LoginActivity extends Activity implements OnClickListener{
 		this.setupViews();
 		this.setupListeners();
 		
+		dialog = new ProgressDialog(this);
+		dialog.setMessage("Logging in...");
 	}
 	
 	@Override
@@ -100,8 +104,29 @@ public class LoginActivity extends Activity implements OnClickListener{
 		
 	}
 	
+	private void showLoadingDialog()
+	{
+		if(dialog != null)
+		{
+			dialog.show();
+		}
+	}
+	
+	private void hideLoadingDialog()
+	{
+		if(dialog.isShowing())
+		{
+			dialog.hide();
+		}
+	}
+	
 	class LoginToRss extends AsyncTask<LoginTask, Integer, String>
 	{
+		@Override
+		protected void onPreExecute()
+		{
+			showLoadingDialog();
+		}
 
 		@Override
 		protected String doInBackground(LoginTask... login)
@@ -125,7 +150,8 @@ public class LoginActivity extends Activity implements OnClickListener{
 			{
 				displayToast(result);
 			}
-				
+			
+			hideLoadingDialog();	
 		}
 		
 	}

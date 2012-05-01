@@ -13,4 +13,13 @@
     <string name="addNewShow">Add New Shows</string>
     <string name="addNewShows">Add New Shows:</string>
     <string name="addShow">Add Show</string>
+        <string name="repack">Repack</string>
+    <string name="showconfig">Show Configuration</string>
+    <string name="quality">Quality</string>
+	<string-array name="qualityTypes">
+	    <item>SD</item>
+	    <item>HD</item>
+	    <item>Both</item>
+	</string-array>
+	<string name="showConfigButton">Save Settings</string>
 </resources>
