@@ -2,10 +2,10 @@ package com.showrss.activitys;
 
 import com.showrss.AllShows;
 import com.showrss.YourShows;
-
 import android.R;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,24 +24,12 @@ public class YourShowsActivity extends ListActivity{
         
 
     	super.onCreate(savedInstanceState);
-
-        //TODO: This only needs to be done on app load i think
-        AllShows.populateAllShows();
         
-        YourShows.getShows();
+        Log.d(TAG, "Getting Users Shows");
         
-        configureList();
+        //populate the list of shows in the background
+        new getShows().execute();
         
-        list = (ListView) findViewById(R.id.list);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        	@Override
-			public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) 
-        	{
-        		changeToShowConfigActivity((String)list.getItemAtPosition(position));
-			}
-        });
-        
-        Log.d(TAG, YourShows.shows.toString());
     }
     
     
@@ -54,6 +42,15 @@ public class YourShowsActivity extends ListActivity{
 				android.R.layout.simple_list_item_1, android.R.id.text1, YourShows.showsAsArray());
 	
 		setListAdapter(adapter);
+		
+		list = (ListView) findViewById(R.id.list);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        	@Override
+			public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) 
+        	{
+        		changeToShowConfigActivity((String)list.getItemAtPosition(position));
+			}
+        });
 	}
 	
 	private void changeToShowConfigActivity(String argShowName)
@@ -62,4 +59,37 @@ public class YourShowsActivity extends ListActivity{
     	intent.putExtra("showName", argShowName);
     	startActivityForResult(intent, 0);
     }
+	
+	
+	class getShows extends AsyncTask<Object, Integer, String>
+	{
+		@Override
+		protected void onPreExecute()
+		{
+			//showLoadingDialog();
+		}
+
+		@Override
+		protected String doInBackground(Object... notNeeded)
+		{
+		
+	    	//Check is allshows populated , populate it if it is not.
+	        if (AllShows.allshows == null)
+	        	AllShows.populateAllShows();
+			
+			YourShows.getShows();
+			
+			return "";
+
+		}
+		
+		@Override
+		protected void onPostExecute(String result)
+		{
+			configureList();
+			Log.d(TAG, "Successfully Loaded Shows");
+			//hideLoadingDialog();	
+		}
+		
+	}
 }
