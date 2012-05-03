@@ -3,8 +3,8 @@ package com.showrss.activitys;
 import com.showrss.AllShows;
 import com.showrss.R;
 import com.showrss.YourShows;
-
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,24 +26,21 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addnewshows);
         
-        //This does not changes, it should maybe loaded once on app startup
-        AllShows.populateAllShows();
-
-        	
-		configureSpinner();
+		Log.d(TAG, "Loading shows that are available to add");
 		this.setupViews();
 		this.setupListeners();
+		new getAvailableShows().execute();
 		
-		
-        Log.d(TAG, YourShows.shows.toString());
     }
     
-	private void setupViews(){
+	private void setupViews()
+	{
 		addShow = (Button)this.findViewById(R.id.addShowButton);
 
 	}
     
-    private void setupListeners(){
+    private void setupListeners()
+    {
     	addShow.setOnClickListener(this);
 
 	}
@@ -71,11 +68,10 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 		
 		String selectedShow = (String) s.getSelectedItem();
 		
-		//TODO: Needs to be threaded.
-		YourShows.addShow(selectedShow);
+		new addShow().execute(selectedShow);
 		
-		configureSpinner();
-		Toast.makeText(this, "Added " + selectedShow, Toast.LENGTH_SHORT).show();
+		//Update available shows as one will have been removed from it
+		new getAvailableShows().execute();
 		
 	}
 	
@@ -91,6 +87,73 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 		android.R.layout.simple_spinner_item, YourShows.availableShowsAsArray());
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		s.setAdapter(adapter);
+	}
+	
+	private void displayToast(String message)
+	{
+		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+	}
+	
+	//Subclass for getting available shows
+	class getAvailableShows extends AsyncTask<Object, Integer, String>
+	{
+		@Override
+		protected void onPreExecute()
+		{
+			//showLoadingDialog();
+		}
+
+		@Override
+		protected String doInBackground(Object... notNeeded)
+		{
+		
+	    	//Check is allshows populated , populate it if it is not.
+	        if (AllShows.allshows == null)
+	        	AllShows.populateAllShows();
+			
+			YourShows.getShows();
+			
+			return "";
+
+		}
+		
+		@Override
+		protected void onPostExecute(String result)
+		{
+			configureSpinner();
+			Log.d(TAG, "Successfully Loaded Shows to Add");
+			//hideLoadingDialog();	
+		}
+		
+	}
+	
+	//Subclass for adding shows
+	class addShow extends AsyncTask<String, Integer, String>
+	{
+		@Override
+		protected void onPreExecute()
+		{
+			//showLoadingDialog();
+		}
+
+		@Override
+		protected String doInBackground(String... selectedShow)
+		{
+			
+			YourShows.addShow(selectedShow[0]);
+			
+			return selectedShow[0];
+
+		}
+		
+		@Override
+		protected void onPostExecute(String selectedShow)
+		{
+			Log.d(TAG, "Successfully Added " + selectedShow );
+			displayToast("Added " + selectedShow);
+			//hideLoadingDialog();	
+		}
+		
 	}
 
 }
