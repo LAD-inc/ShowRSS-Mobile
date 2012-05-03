@@ -17,7 +17,7 @@ import com.showrss.LoginTask;
 import com.showrss.R;
 import com.showrss.User;
 
-public class LoginActivity extends Activity implements OnClickListener{
+public class LoginActivity extends Activity implements OnClickListener {
 
 	// Declarations for threading
 	private String username;
@@ -25,135 +25,130 @@ public class LoginActivity extends Activity implements OnClickListener{
 	EditText uNameEdit;
 	EditText passEdit;
 	ProgressDialog dialog;
-	
+
 	private Button loginButton;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
+		// TODO: cookie manager is not working yet
 		CookieSyncManager.createInstance(this);
-		
-		
-		if ("" != User.getUserName())
-		{
-			//user is already looged in
+
+		// Calls http request and if user name is present, it is already logged in
+		// and the and the login screen is not loaded
+		if (User.getUserName() != "") {
+			// user is already logged in
 			changeToMenu();
 		}
-		
+
 		setContentView(R.layout.login);
-	
-//		this.initThreading();
+
 		this.setupViews();
 		this.setupListeners();
-		
-		dialog = new ProgressDialog(this);
-		dialog.setMessage("Logging in...");
 	}
-	
+
 	@Override
-	public void onResume()
-	{
+	public void onResume() {
 		super.onResume();
+		// TODO: cookie manager is not working yet
 		CookieSyncManager.getInstance().startSync();
 	}
-	
+
 	@Override
-	public void onPause()
-	{
+	public void onPause() {
 		super.onPause();
+		// TODO: cookie manager is not working yet
 		CookieSyncManager.getInstance().stopSync();
 	}
 
-	private void setupViews(){
-		loginButton = (Button)this.findViewById(R.id.loginButton);
-	}
-	
-	
-	private void setupListeners(){
-		loginButton.setOnClickListener(this);
-		uNameEdit = (EditText)findViewById(R.id.username);
-		passEdit = (EditText)findViewById(R.id.password);
+	private void setupViews() {
+		loginButton = (Button) this.findViewById(R.id.loginButton);
+
+		dialog = new ProgressDialog(this);
+		dialog.setMessage(getString(R.string.logging_in_));
 	}
 
-	private void displayToast(String text)
-	{
-		Toast.makeText(this, "Error: " + text, Toast.LENGTH_SHORT).show();
+	private void setupListeners() {
+		loginButton.setOnClickListener(this);
+		uNameEdit = (EditText) findViewById(R.id.username);
+		passEdit = (EditText) findViewById(R.id.password);
 	}
-	
-	public void changeToMenu()
-	{
+
+	private void displayToast(String text) {
+		// Creates and displays a toast
+		Toast.makeText(this, R.string.error_ + text, Toast.LENGTH_SHORT).show();
+	}
+
+	/**
+	 * This method
+	 * 
+	 */
+	public void changeToMenu() {
 		Log.d("LoginActivity", "Changing to Menu");
-		
+
 		CookieSyncManager.getInstance().sync();
-		
+
 		Intent myIntent = new Intent(this, MenuActivity.class);
 		startActivity(myIntent);
 	}
 
 	@Override
 	public void onClick(View arg0) {
-		if (arg0.getId() == R.id.loginButton){
-			
+		if (arg0.getId() == R.id.loginButton) {
+
+			// extract user name
 			this.username = uNameEdit.getText().toString();
 			this.password = passEdit.getText().toString();
-			
+
 			LoginTask login = new LoginTask(this.username, this.password);
 			new LoginToRss().execute(login);
 		}
-		
+
 	}
-	
-	private void showLoadingDialog()
-	{
-		if(dialog != null)
-		{
+
+	/**
+	 * Show dialog loading
+	 */
+	private void showLoadingDialog() {
+		if (dialog != null) {
 			dialog.show();
 		}
 	}
-	
-	private void hideLoadingDialog()
-	{
-		if(dialog.isShowing())
-		{
+
+	private void hideLoadingDialog() {
+		if (dialog.isShowing()) {
 			dialog.hide();
 		}
 	}
-	
-	class LoginToRss extends AsyncTask<LoginTask, Integer, String>
-	{
+
+	class LoginToRss extends AsyncTask<LoginTask, Integer, String> {
 		@Override
-		protected void onPreExecute()
-		{
+		protected void onPreExecute() {
 			showLoadingDialog();
 		}
 
 		@Override
-		protected String doInBackground(LoginTask... login)
-		{
-		
+		protected String doInBackground(LoginTask... login) {
+
 			LoginTask newLogin = login[0];
-			
+
 			return newLogin.attemptLogin();
 
 		}
-		
+
 		@Override
-		protected void onPostExecute(String result)
-		{
-			//Check if there was an error
-			if (result == null )
-			{
+		protected void onPostExecute(String result) {
+			// Check if there was an error
+			if (result == null) {
 				changeToMenu();
-			}
-			else
-			{
+			} else {
 				displayToast(result);
 			}
-			
-			hideLoadingDialog();	
+
+			hideLoadingDialog();
 		}
-		
+
 	}
 
 }

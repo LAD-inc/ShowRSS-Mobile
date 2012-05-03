@@ -22,4 +22,5 @@
 	    <item>Both</item>
 	</string-array>
 	<string name="showConfigButton">Save Settings</string>
+	<string name="logging_in_">Logging in...</string>
 </resources>
