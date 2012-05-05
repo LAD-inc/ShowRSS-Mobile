@@ -26,6 +26,9 @@ public class HttpClientHelper {
 	{
 		// Set your params (stopping the redirect to read the headers)
 		HttpParams params = new BasicHttpParams();
+		params.setParameter("http.connection-manager.timeout", (long)20000);
+		params.setParameter("http.socket.timeout",(int)20000);
+		params.setParameter("http.connection.timeout",(int)20000);
 		HttpClientParams.setRedirecting(params, false);
 		
 		HttpClient newHttpclient = new DefaultHttpClient(params);

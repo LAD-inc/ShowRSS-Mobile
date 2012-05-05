@@ -67,6 +67,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		dialog = new ProgressDialog(this);
 		dialog.setMessage(getString(R.string.logging_in_));
+		dialog.setCancelable(false);
 	}
 
 	private void setupListeners() {
