@@ -70,16 +70,10 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 		
 		new addShow().execute(selectedShow);
 		
-		//Update available shows as one will have been removed from it
-		new getAvailableShows().execute();
-		
 	}
 	
 	private void configureSpinner()
 	{
-		//TODO: move to a thread.
-		//Load the most recent version
-		YourShows.getShows();
 		
     	Spinner s = (Spinner) findViewById(R.id.newShowSpinner);
 		@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -150,7 +144,13 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 		protected void onPostExecute(String selectedShow)
 		{
 			Log.d(TAG, "Successfully Added " + selectedShow );
+			
+			//Update available shows as one will have been removed from it
+			new getAvailableShows().execute();
+			
 			displayToast("Added " + selectedShow);
+			
+			
 			//hideLoadingDialog();	
 		}
 		

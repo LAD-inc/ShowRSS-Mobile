@@ -23,7 +23,6 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 	Spinner spinner;
 	
 	boolean inHD = false;
-	boolean isBoth = false;
 	boolean inSD = false;
 	
 	
@@ -53,16 +52,9 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 	
 	private void saveSettings()
 	{
-		if(inHD || inSD || isBoth)
+		if(inHD || inSD )
 		{
-			if(isBoth)
-			{
-				YourShows.showSettings(showName, true, true, box.isChecked());
-			}
-			else
-			{
-				YourShows.showSettings(showName, inSD, inHD, box.isChecked());
-			}			
+			YourShows.showSettings(showName, inSD, inHD, box.isChecked());			
 		}
 		else
 		{
@@ -80,19 +72,16 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 		{
 			inSD = false;
 			inHD = true;
-			isBoth = false;
 		}
 		else if(selected.equals("SD"))
 		{
 			inSD = true;
 			inHD = false;
-			isBoth = false;
 		}
 		else if(selected.equals("Both"))
 		{
-			inSD = false;
-			inHD = false;
-			isBoth = true;
+			inSD = true;
+			inHD = true;
 		}
 	}
 
@@ -104,6 +93,5 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 	{
 		inHD = false;
 		inSD = false;
-		isBoth = false;
 	}
 }
