@@ -1,7 +1,6 @@
 package com.showrss.activitys;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.showrss.LoadingDialog;
 import com.showrss.LoginTask;
 import com.showrss.R;
 import com.showrss.User;
@@ -24,7 +24,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private String password;
 	EditText uNameEdit;
 	EditText passEdit;
-	ProgressDialog dialog;
+	LoadingDialog loadingDialog;
 
 	private Button loginButton;
 
@@ -65,9 +65,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private void setupViews() {
 		loginButton = (Button) this.findViewById(R.id.loginButton);
 
-		dialog = new ProgressDialog(this);
-		dialog.setMessage(getString(R.string.logging_in_));
-		dialog.setCancelable(false);
+		loadingDialog = new LoadingDialog(this, getString(R.string.logging_in_));
 	}
 
 	private void setupListeners() {
@@ -108,25 +106,10 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 	}
 
-	/**
-	 * Show dialog loading
-	 */
-	private void showLoadingDialog() {
-		if (dialog != null) {
-			dialog.show();
-		}
-	}
-
-	private void hideLoadingDialog() {
-		if (dialog.isShowing()) {
-			dialog.hide();
-		}
-	}
-
 	class LoginToRss extends AsyncTask<LoginTask, Integer, String> {
 		@Override
 		protected void onPreExecute() {
-			showLoadingDialog();
+			loadingDialog.showLoadingDialog();
 		}
 
 		@Override
@@ -147,7 +130,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 				displayToast(result);
 			}
 
-			hideLoadingDialog();
+			loadingDialog.hideLoadingDialog();
 		}
 
 	}

@@ -1,6 +1,7 @@
 package com.showrss.activitys;
 
 import com.showrss.AllShows;
+import com.showrss.LoadingDialog;
 import com.showrss.R;
 import com.showrss.YourShows;
 import android.app.Activity;
@@ -19,6 +20,7 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 	private static final String TAG = "AddNewShowActivity";
 	
 	private Button addShow;
+	LoadingDialog loadingDialog;
 	
 	 /** Called when the activity is first created. */
     @Override
@@ -36,6 +38,8 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 	private void setupViews()
 	{
 		addShow = (Button)this.findViewById(R.id.addShowButton);
+		loadingDialog = new LoadingDialog(this, getString(com.showrss.R.string.getting_shows));
+		
 
 	}
     
@@ -94,7 +98,7 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 		@Override
 		protected void onPreExecute()
 		{
-			//showLoadingDialog();
+			loadingDialog.showLoadingDialog();
 		}
 
 		@Override
@@ -116,7 +120,7 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 		{
 			configureSpinner();
 			Log.d(TAG, "Successfully Loaded Shows to Add");
-			//hideLoadingDialog();	
+			loadingDialog.hideLoadingDialog();	
 		}
 		
 	}
@@ -127,7 +131,8 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 		@Override
 		protected void onPreExecute()
 		{
-			//showLoadingDialog();
+			loadingDialog.setMessage(getString(com.showrss.R.string.adding_show));
+			loadingDialog.showLoadingDialog();
 		}
 
 		@Override
@@ -135,6 +140,8 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 		{
 			
 			YourShows.addShow(selectedShow[0]);
+			
+			YourShows.getShows();
 			
 			return selectedShow[0];
 
@@ -144,14 +151,11 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 		protected void onPostExecute(String selectedShow)
 		{
 			Log.d(TAG, "Successfully Added " + selectedShow );
-			
-			//Update available shows as one will have been removed from it
-			new getAvailableShows().execute();
+			configureSpinner();
+			loadingDialog.hideLoadingDialog();
 			
 			displayToast("Added " + selectedShow);
-			
-			
-			//hideLoadingDialog();	
+				
 		}
 		
 	}

@@ -1,6 +1,7 @@
 package com.showrss.activitys;
 
 import com.showrss.AllShows;
+import com.showrss.LoadingDialog;
 import com.showrss.YourShows;
 import android.R;
 import android.app.ListActivity;
@@ -17,6 +18,7 @@ public class YourShowsActivity extends ListActivity{
 	
 	private static final String TAG = "YourShowActivity";
 	private ListView list;
+	LoadingDialog loadingDialog;
 	
 	 /** Called when the activity is first created. */
     @Override
@@ -26,13 +28,17 @@ public class YourShowsActivity extends ListActivity{
     	super.onCreate(savedInstanceState);
         
         Log.d(TAG, "Getting Users Shows");
+        this.setupViews();
         
         //populate the list of shows in the background
         new getShows().execute();
         
     }
     
-    
+    private void setupViews() 
+    {
+		loadingDialog = new LoadingDialog(this, getString(com.showrss.R.string.getting_shows));
+	}
 
     
 	private void configureList()
@@ -66,7 +72,7 @@ public class YourShowsActivity extends ListActivity{
 		@Override
 		protected void onPreExecute()
 		{
-			//showLoadingDialog();
+			loadingDialog.showLoadingDialog();
 		}
 
 		@Override
@@ -88,7 +94,7 @@ public class YourShowsActivity extends ListActivity{
 		{
 			configureList();
 			Log.d(TAG, "Successfully Loaded Shows");
-			//hideLoadingDialog();	
+			loadingDialog.hideLoadingDialog();	
 		}
 		
 	}
