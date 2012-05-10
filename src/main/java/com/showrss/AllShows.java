@@ -12,7 +12,7 @@ public class AllShows {
 	public static Map<Object,String> showNameAsKey;
 	public final static String url = "http://showrss.karmorra.info/?cs=browse";
 	
-	public static void populateAllShows()
+	public static void populateAllShows() throws Exception
 	{
 		String htmlCode = "";
 		try 

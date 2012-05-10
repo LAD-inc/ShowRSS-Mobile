@@ -23,10 +23,21 @@ public class MenuActivity extends Activity implements OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        
+        
         setContentView(R.layout.main);
         
         userName = (TextView)findViewById(R.id.loggedInAsName);
-        userName.setText(User.userName);
+        try 
+        {
+			userName.setText(User.getUserName());
+		} 
+        catch (Exception e) 
+        {
+        	switchActivity(this, LoginActivity.class);
+        	
+		}
         
 		this.setupViews();
 		this.setupListeners();

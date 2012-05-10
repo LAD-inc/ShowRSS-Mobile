@@ -78,14 +78,21 @@ public class YourShowsActivity extends ListActivity{
 		@Override
 		protected String doInBackground(Object... notNeeded)
 		{
-		
-	    	//Check is allshows populated , populate it if it is not.
-	        if (AllShows.allshows == null)
-	        	AllShows.populateAllShows();
-			
-			YourShows.getShows();
-			
-			return "";
+			try
+			{
+		    	//Check is allshows populated , populate it if it is not.
+		        if (AllShows.allshows == null)
+		        	AllShows.populateAllShows();
+				
+				YourShows.getShows();
+				
+				return "";
+			}
+			catch (Exception e) 
+			{ 
+				e.printStackTrace();
+				return e.getMessage();
+			}
 
 		}
 		

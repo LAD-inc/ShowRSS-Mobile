@@ -1,12 +1,10 @@
 package com.showrss;
 
-import java.io.IOException;
-
 public class AiredShowsTask {
 
 	String airedShowsUrl = "http://showrss.karmorra.info/?cs=schedule&mode=std&print=aired";
 	
-	public void getShows() throws IOException
+	public void getShows() throws Exception
 	{
 		String htmlCode = HtmlCode.GetHtmlCode(airedShowsUrl);
 		return;

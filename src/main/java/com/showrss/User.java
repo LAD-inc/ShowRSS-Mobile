@@ -9,7 +9,7 @@ public class User {
 	public static String userName;
 	public static String url = "http://showrss.karmorra.info/";
 	
-	public static String getUserName()
+	public static String getUserName() throws Exception
 	{
 		String htmlCode = "";
 		try 
@@ -22,28 +22,22 @@ public class User {
 			return "";
 		}
 		
-		
-		if (HtmlCode.checkLoginStatus(htmlCode))
-		{
-			userName = extractUserName(htmlCode);
-			return userName;
-		}
-		else
-			return "";
+
+		userName = extractUserName(htmlCode);
+		return userName;
+
 	}
 	
-	private static String extractUserName(String htmlCode)
+	public static String extractUserName(String htmlCode)
 	{
 		Pattern p = Pattern.compile("Hi there, <strong>([^<]+)</strong>");
 		Matcher m = p.matcher(htmlCode);
-		String match = "";
 		
 		if (m.find())
-		{
-			match =  m.group(1);
-		}
-
-		return match;
+			return  m.group(1);
+		else
+			return "";
+			
 	}
 }
 

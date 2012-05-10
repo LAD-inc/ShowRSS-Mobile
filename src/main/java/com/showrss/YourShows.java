@@ -15,7 +15,7 @@ public class YourShows {
 	private static String deleteShowUrl = "http://showrss.karmorra.info/?cs=ajax&m=shows&func=delete&show=";
 	private static String optsShowUrl = "http://showrss.karmorra.info/?cs=ajax&m=shows&func=opts&show=";
 	
-	public static List<Show> getShows()
+	public static List<Show> getShows() throws Exception
 	{
 		String htmlCode = "";
 		try 
@@ -99,7 +99,7 @@ public class YourShows {
 		return showName;
 	}
 	
-	public static void addShow(String showName)
+	public static void addShow(String showName) throws Exception
 	{
 		String showId = AllShows.showNameAsKey.get(showName);
 		try 
@@ -114,7 +114,7 @@ public class YourShows {
 	}
 	
 	//Deletes the passes show from your list.
-	public static void deleteShow(String showName)
+	public static void deleteShow(String showName) throws Exception
 	{
 		String showId = AllShows.showNameAsKey.get(showName);
 		try 
@@ -129,7 +129,7 @@ public class YourShows {
 	}
 	
 	//Deletes the passes show from your list.
-		public static boolean showSettings(String showName, boolean sd, boolean hd, boolean repack)
+		public static boolean showSettings(String showName, boolean sd, boolean hd, boolean repack) throws Exception
 		{
 			String showId = AllShows.showNameAsKey.get(showName);
 			int hasHd = 0;

@@ -24,7 +24,7 @@ public class LoginTask{
 		this.password = password;
 	}
 	
-	public String attemptLogin() {
+	public String attemptLogin() throws Exception {
 		
 		String error = "Unknown Error";
 		Log.d(TAG, "Attempting to login as: " + this.userName);

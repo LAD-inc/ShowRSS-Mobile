@@ -32,7 +32,7 @@ public class Show {
 		return "Show [showName=" + showName + ", showId=" + showId + "]";
 	}
 	
-	public boolean getSettings()
+	public boolean getSettings() throws Exception
 	{
 		String settingsUrl = "http://showrss.karmorra.info/?cs=ajax&m=opts&show=" + this.showId;
 		

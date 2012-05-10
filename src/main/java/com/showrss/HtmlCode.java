@@ -14,7 +14,7 @@ public class HtmlCode {
 	private static final String TAG = "HtmlCode";
 	static HttpClient httpclient = HttpClientHelper.getHttpClient();
 	
-	public static String GetHtmlCode(String url) throws IOException
+	public static String GetHtmlCode(String url) throws Exception
 	{
 		Log.d(TAG, "Fetching Html code for the following url: " + url);
 		
@@ -24,24 +24,26 @@ public class HtmlCode {
         htmlCode = httpclient.execute(httpget, responseHandler);
         if (!checkLoginStatus(htmlCode))
         {
-        	//TODO: Throw exception maybe?
+        	Log.d(TAG, "User is not logged in");
+        	throw new Exception("You are not logged in");
         }
         return htmlCode;
 	}
 	
 	public static boolean checkLoginStatus(String htmlCode)
 	{
-		//this text should not be present if the user is trying to access a page while they are logged in.
-		String loginText = "<a href=\"/?cs=login\" class=\"userlogin pad\">login</a>";
-		if (htmlCode.contains(loginText))
+		String userName = "";
+		userName = User.extractUserName(htmlCode);
+		
+		if (userName != "")
 		{
-			//User is not logged in
-			return false;
+			//User is logged in
+			return true;
 		}
 		else
 		{
-			//user is logged in
-			return true;
+			//user is not logged in
+			return false;
 		}
 	}
 	

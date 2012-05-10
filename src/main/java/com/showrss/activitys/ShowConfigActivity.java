@@ -4,6 +4,7 @@ import com.showrss.R;
 import com.showrss.YourShows;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,11 +51,25 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 		box = (CheckBox) findViewById(R.id.checkBox1);
 	}
 	
+    public void switchActivity( @SuppressWarnings("rawtypes") Class className)
+    {
+		Intent myIntent = new Intent(this, className);
+		startActivity(myIntent);
+    }
+	
 	private void saveSettings()
 	{
 		if(inHD || inSD )
 		{
-			YourShows.showSettings(showName, inSD, inHD, box.isChecked());			
+			try 
+			{
+				YourShows.showSettings(showName, inSD, inHD, box.isChecked());
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+				switchActivity( LoginActivity.class);
+			}			
 		}
 		else
 		{

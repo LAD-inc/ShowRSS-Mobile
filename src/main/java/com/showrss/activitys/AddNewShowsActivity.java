@@ -5,6 +5,7 @@ import com.showrss.LoadingDialog;
 import com.showrss.R;
 import com.showrss.YourShows;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,8 +40,6 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 	{
 		addShow = (Button)this.findViewById(R.id.addShowButton);
 		loadingDialog = new LoadingDialog(this, getString(com.showrss.R.string.getting_shows));
-		
-
 	}
     
     private void setupListeners()
@@ -48,6 +47,12 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
     	addShow.setOnClickListener(this);
 
 	}
+    
+    public void switchActivity( @SuppressWarnings("rawtypes") Class className)
+    {
+		Intent myIntent = new Intent(this, className);
+		startActivity(myIntent);
+    }
 	
 	@Override
 	public void onClick(View v) 
@@ -104,12 +109,21 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 		@Override
 		protected String doInBackground(Object... notNeeded)
 		{
-		
-	    	//Check is allshows populated , populate it if it is not.
-	        if (AllShows.allshows == null)
-	        	AllShows.populateAllShows();
 			
-			YourShows.getShows();
+			try 
+			{
+		
+				//Check is allshows populated , populate it if it is not.
+				if (AllShows.allshows == null)
+					AllShows.populateAllShows();
+			
+				YourShows.getShows();
+			}
+			catch (Exception e) 
+			{ 
+				e.printStackTrace();
+				return e.getMessage();
+			}
 			
 			return "";
 
@@ -118,9 +132,19 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 		@Override
 		protected void onPostExecute(String result)
 		{
-			configureSpinner();
-			Log.d(TAG, "Successfully Loaded Shows to Add");
-			loadingDialog.hideLoadingDialog();	
+			
+			if (result == "")
+			{
+				configureSpinner();
+				Log.d(TAG, "Successfully Loaded Shows to Add");
+				loadingDialog.hideLoadingDialog();
+			}
+			else
+			{
+				loadingDialog.hideLoadingDialog();
+				switchActivity( LoginActivity.class);
+			}
+			
 		}
 		
 	}
@@ -138,23 +162,38 @@ public class AddNewShowsActivity extends Activity implements OnClickListener{
 		@Override
 		protected String doInBackground(String... selectedShow)
 		{
-			
-			YourShows.addShow(selectedShow[0]);
-			
-			YourShows.getShows();
-			
-			return selectedShow[0];
+			try
+			{
+				YourShows.addShow(selectedShow[0]);
+				
+				YourShows.getShows();
+				
+				return selectedShow[0];
+
+			}
+			catch (Exception e) 
+			{ 
+				e.printStackTrace();
+				return "earraid";
+			}
 
 		}
 		
 		@Override
 		protected void onPostExecute(String selectedShow)
 		{
-			Log.d(TAG, "Successfully Added " + selectedShow );
-			configureSpinner();
-			loadingDialog.hideLoadingDialog();
-			
-			displayToast("Added " + selectedShow);
+			if (selectedShow == "earraid")
+			{
+				loadingDialog.hideLoadingDialog();
+				switchActivity( LoginActivity.class);
+			}
+			else
+			{
+				Log.d(TAG, "Successfully Added " + selectedShow );
+				configureSpinner();
+				loadingDialog.hideLoadingDialog();
+				displayToast("Added " + selectedShow);
+			}
 				
 		}
 		

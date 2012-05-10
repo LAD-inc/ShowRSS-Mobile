@@ -35,13 +35,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 		// TODO: cookie manager is not working yet
 		CookieSyncManager.createInstance(this);
 
-		// Calls http request and if user name is present, it is already logged in
-		// and the and the login screen is not loaded
-		if (User.getUserName() != "") {
-			// user is already logged in
-			changeToMenu();
-		}
-
 		setContentView(R.layout.login);
 
 		this.setupViews();
@@ -53,6 +46,21 @@ public class LoginActivity extends Activity implements OnClickListener {
 		super.onResume();
 		// TODO: cookie manager is not working yet
 		CookieSyncManager.getInstance().startSync();
+		
+		// Calls http request and if user name is present, it is already logged in
+		// and the and the login screen is not loaded
+		try 
+		{
+			if (User.getUserName() != "") 
+			{
+				// user is already logged in
+				changeToMenu();
+			}
+		}
+		catch (Exception e) {
+			//Already at login Acitivty
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -117,7 +125,15 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 			LoginTask newLogin = login[0];
 
-			return newLogin.attemptLogin();
+			try 
+			{
+				return newLogin.attemptLogin();
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+			return "Error";
 
 		}
 
@@ -126,7 +142,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 			// Check if there was an error
 			if (result == null) {
 				changeToMenu();
-			} else {
+			} 
+			else {
+
 				displayToast(result);
 			}
 
