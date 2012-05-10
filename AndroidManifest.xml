@@ -32,6 +32,11 @@
             android:name=".activitys.ShowConfigActivity"
             android:label="@string/showconfig">
         </activity>
+        
+        <activity
+            android:name=".activitys.AboutActivity"
+            android:label="@string/app_name">
+        </activity>
     </application>
     
 </manifest>

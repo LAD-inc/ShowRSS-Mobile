@@ -60,22 +60,13 @@
 
 
         <Button
-            android:id="@+id/airedShowsButton"
+            android:id="@+id/aboutButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:text="@string/airedEpisodes" />
+            android:text="@string/aboutButton" />
 
-
-
-        <Button
-            android:id="@+id/upcomingShowsButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:text="@string/upcomingEpisodes" />
 
     </LinearLayout>
 
