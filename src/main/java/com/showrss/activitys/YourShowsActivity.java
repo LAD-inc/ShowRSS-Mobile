@@ -16,6 +16,16 @@ import android.widget.ListView;
 
 public class YourShowsActivity extends ListActivity{
 	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+        //populate the list of shows in the background
+        new getShows().execute();
+		
+	}
+
+
 	private static final String TAG = "YourShowActivity";
 	private ListView list;
 	LoadingDialog loadingDialog;
@@ -29,9 +39,6 @@ public class YourShowsActivity extends ListActivity{
         
         Log.d(TAG, "Getting Users Shows");
         this.setupViews();
-        
-        //populate the list of shows in the background
-        new getShows().execute();
         
     }
     
@@ -64,6 +71,12 @@ public class YourShowsActivity extends ListActivity{
     	Intent intent = new Intent(this, ShowConfigActivity.class);
     	intent.putExtra("showName", argShowName);
     	startActivityForResult(intent, 0);
+    }
+	
+    public void switchActivity( @SuppressWarnings("rawtypes") Class className)
+    {
+		Intent myIntent = new Intent(this, className);
+		startActivity(myIntent);
     }
 	
 	
@@ -99,9 +112,17 @@ public class YourShowsActivity extends ListActivity{
 		@Override
 		protected void onPostExecute(String result)
 		{
-			configureList();
-			Log.d(TAG, "Successfully Loaded Shows");
-			loadingDialog.hideLoadingDialog();	
+			if (result == "")
+			{
+				configureList();
+				Log.d(TAG, "Successfully Loaded Shows");
+				loadingDialog.hideLoadingDialog();
+			}
+			else
+			{
+				loadingDialog.hideLoadingDialog();
+				switchActivity( LoginActivity.class);
+			}
 		}
 		
 	}
