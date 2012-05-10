@@ -16,6 +16,16 @@ import android.widget.ListView;
 
 public class YourShowsActivity extends ListActivity{
 	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+        //populate the list of shows in the background
+        new getShows().execute();
+		
+	}
+
+
 	private static final String TAG = "YourShowActivity";
 	private ListView list;
 	LoadingDialog loadingDialog;
@@ -29,9 +39,6 @@ public class YourShowsActivity extends ListActivity{
         
         Log.d(TAG, "Getting Users Shows");
         this.setupViews();
-        
-        //populate the list of shows in the background
-        new getShows().execute();
         
     }
     

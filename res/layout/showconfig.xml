@@ -3,57 +3,85 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-    
-     <TableRow
-            android:id="@+id/tableRow2"
+
+    <TableRow
+        android:id="@+id/tableRow5"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:textSize="30sp"
+            android:id="@+id/showNameTop"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@+string/quality" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@+string/quality" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@+string/quality" />
 
-            <Spinner
-                android:id="@+id/spinner1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" 
-                android:layout_weight="1"
-                android:entries="@array/qualityTypes" />
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/qualityTypes" />
     </TableRow>
 
     <TableRow
-            android:id="@+id/tableRow1"
+        android:id="@+id/tableRow1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView1"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@+string/repack" />
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@+string/repack" />
-
-            <CheckBox
-                android:id="@+id/checkBox1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-        </TableRow>
-        
-    	<TableRow
-            android:id="@+id/tableRow3"
+        <CheckBox
+            android:id="@+id/checkBox1"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </TableRow>
 
-    		<Button
-    		    android:id="@+id/button1"
-    		    android:layout_width="fill_parent"
-    		    android:layout_height="wrap_content"
-    		    android:layout_weight="1"
-    		    android:text="@+string/showConfigButton" />
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
-        </TableRow>
+        <Button
+            android:id="@+id/saveSettingsButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@+string/showConfigButton" />
+
+    </TableRow>
+    
+        <TableRow
+        android:id="@+id/tableRow4"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/deleteShowButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete the show" />
+    </TableRow>
+    
+
 </LinearLayout>
