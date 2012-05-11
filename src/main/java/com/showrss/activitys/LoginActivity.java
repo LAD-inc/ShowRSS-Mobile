@@ -68,6 +68,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		super.onPause();
 		// TODO: cookie manager is not working yet
 		CookieSyncManager.getInstance().stopSync();
+
 	}
 
 	private void setupViews() {
@@ -97,7 +98,14 @@ public class LoginActivity extends Activity implements OnClickListener {
 		CookieSyncManager.getInstance().sync();
 
 		Intent myIntent = new Intent(this, MenuActivity.class);
-		startActivity(myIntent);
+		try
+		{
+			startActivity(myIntent);
+		}
+		finally
+		{
+			finish();
+		}
 	}
 
 	@Override
@@ -141,14 +149,15 @@ public class LoginActivity extends Activity implements OnClickListener {
 		protected void onPostExecute(String result) {
 			// Check if there was an error
 			if (result == null) {
+				loadingDialog.hideLoadingDialog();
 				changeToMenu();
+				
 			} 
 			else {
 
 				displayToast(result);
 			}
 
-			loadingDialog.hideLoadingDialog();
 		}
 
 	}

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.showrss.LoadingDialog;
 import com.showrss.R;
+import com.showrss.Show;
 import com.showrss.YourShows;
 
 public class ShowConfigActivity extends Activity implements OnItemSelectedListener, OnClickListener 
@@ -28,8 +30,8 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 	Button saveSettingsButton;
 	Button deleteShowButton;
 	TextView showNameTextView;
-	CheckBox box;
-	Spinner spinner;
+	CheckBox showRepackCheckbox;
+	Spinner showQualitySpinner;
 	
 	boolean inHD = false;
 	boolean inSD = false;
@@ -49,18 +51,20 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 		
 		this.setupViews();
 		this.setupListeners();
+		
+		new getSettings().execute(showName);
 	}
 
 	private void setupViews() {
 		showNameTextView = (TextView)findViewById(R.id.showNameTop);
 		saveSettingsButton = (Button)findViewById(R.id.saveSettingsButton);
 		deleteShowButton = (Button)findViewById(R.id.deleteShowButton);
-		spinner = (Spinner) findViewById(R.id.spinner1);
-		box = (CheckBox) findViewById(R.id.checkBox1);
+		showQualitySpinner = (Spinner) findViewById(R.id.spinner1);
+		showRepackCheckbox = (CheckBox) findViewById(R.id.checkBox1);
 		
 	
 		showNameTextView.setText(showName);
-		loadingDialog = new LoadingDialog(this, "Deleting Show");
+		loadingDialog = new LoadingDialog(this, "");
 		
 	}
 
@@ -68,7 +72,7 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 		
 		saveSettingsButton.setOnClickListener(this);	    	
 		deleteShowButton.setOnClickListener(this);
-		spinner.setOnItemSelectedListener(this);
+		showQualitySpinner.setOnItemSelectedListener(this);
 		
 	}
 	
@@ -84,7 +88,7 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 		{
 			try 
 			{
-				YourShows.showSettings(showName, inSD, inHD, box.isChecked());
+				YourShows.setShowSettings(showName, inSD, inHD, showRepackCheckbox.isChecked());
 			} 
 			catch (Exception e) 
 			{
@@ -150,13 +154,28 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
 	
+
+	private void populateSetitngs(Show show) 
+	{
+		boolean repack = false;
+		
+		if (show.hasProper == 1)
+			repack = true;
+		
+		showQualitySpinner.setSelection(show.hasHd);
+		
+		
+		showRepackCheckbox.setChecked(repack);
+		
+	}
+	
 	//Subclass for deleting shows
 	class deleteShow extends AsyncTask<String, Integer, String>
 	{
 		@Override
 		protected void onPreExecute()
 		{
-			loadingDialog.setMessage("Deleting");
+			loadingDialog.setMessage("Deleting...");
 			loadingDialog.showLoadingDialog();
 		}
 
@@ -196,6 +215,53 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 			}
 				
 		}
+	}	
 		
+	//Subclass for pulling down show settings
+	class getSettings extends AsyncTask<String, Integer, Show>
+	{
+		@Override
+		protected void onPreExecute()
+		{
+			loadingDialog.setMessage("Loading Show's Settings...");
+			loadingDialog.showLoadingDialog();
+		}
+
+		@Override
+		protected Show doInBackground(String... selectedShow)
+		{	
+			try 
+			{
+				Show show = YourShows.getShowSettings(selectedShow[0]);
+				return show;
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+				//I know we don't like returning null, but not sure what else to do here!
+				return null;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(Show show)
+		{
+			
+			if (show == null)
+			{
+				loadingDialog.hideLoadingDialog();
+				switchActivity( LoginActivity.class);
+			}
+			else
+			{
+				Log.d(TAG, "Got settings for " + show.showName );
+			
+				loadingDialog.hideLoadingDialog();
+						
+				populateSetitngs(show);
+			}
+				
+		}
+	
 	}
 }

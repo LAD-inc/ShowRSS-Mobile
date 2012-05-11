@@ -20,7 +20,7 @@ public class YourShows {
 		String htmlCode = "";
 		try 
 		{
-			htmlCode = HtmlCode.GetHtmlCode(url);
+			htmlCode = HtmlCode.GetHtmlCode(url, true);
 		} 
 		catch (IOException e) 
 		{
@@ -104,7 +104,7 @@ public class YourShows {
 		String showId = AllShows.showNameAsKey.get(showName);
 		try 
 		{
-			HtmlCode.GetHtmlCode(addShowUrl + showId);
+			HtmlCode.GetHtmlCode(addShowUrl + showId, false);
 		} 
 		catch (IOException e) 
 		{
@@ -119,7 +119,7 @@ public class YourShows {
 		String showId = AllShows.showNameAsKey.get(showName);
 		try 
 		{
-			HtmlCode.GetHtmlCode(deleteShowUrl + showId);
+			HtmlCode.GetHtmlCode(deleteShowUrl + showId, false);
 		} 
 		catch (IOException e) 
 		{
@@ -129,7 +129,7 @@ public class YourShows {
 	}
 	
 	//Deletes the passes show from your list.
-		public static boolean showSettings(String showName, boolean sd, boolean hd, boolean repack) throws Exception
+		public static boolean setShowSettings(String showName, boolean sd, boolean hd, boolean repack) throws Exception
 		{
 			String showId = AllShows.showNameAsKey.get(showName);
 			int hasHd = 0;
@@ -159,11 +159,13 @@ public class YourShows {
 			if (repack)
 				hasProper = 1;
 			
+			String url = 	optsShowUrl + showId 
+							+ "&hashd=" + hasHd 
+							+ "&hasproper=" + hasProper;
+			
 			try 
 			{
-				HtmlCode.GetHtmlCode(	optsShowUrl + showId 
-										+ "&hashd=" + hasHd 
-										+ "&hasproper=" + hasProper );
+				HtmlCode.GetHtmlCode( url , false);
 			} 
 			catch (IOException e) 
 			{
@@ -172,6 +174,44 @@ public class YourShows {
 				return false;
 			}
 			return true;
+		}
+		
+		public static Show getShowSettings(String showName) throws Exception
+		{
+			Show show = new Show(showName);
+			
+			String settingsUrl = "http://showrss.karmorra.info/?cs=ajax&m=opts&show=" + show.showId;
+			
+			String htmlCode = "";
+			try 
+			{
+				htmlCode = HtmlCode.GetHtmlCode(settingsUrl, false);
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+				return show;
+			}
+			
+			
+			
+			//Get Has HD Value
+			Pattern p = Pattern.compile("Torrent quality.*value=\"([0-9]{1})\" selected.*Torrent types");
+			Matcher m = p.matcher(htmlCode);
+			 
+			if (m.find())
+				show.hasHd = Integer.parseInt(m.group(1));	
+
+			
+			//Get has proper value
+			p = Pattern.compile("Torrent types.*value=\"([0-9]{1})\" selected");
+			m = p.matcher(htmlCode);
+			 
+			if (m.find())
+				show.hasProper = Integer.parseInt(m.group(1));				
+
+			return show;
+
 		}
 	
 }

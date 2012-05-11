@@ -27,11 +27,14 @@
         <string name="repack">Repack</string>
     <string name="showconfig">Show Configuration</string>
     <string name="quality">Quality</string>
+    
+    <!-- 	Do no change the order of these! Setting the current quality on the spinner depends on this order   -->
 	<string-array name="qualityTypes">
 	    <item>SD</item>
 	    <item>HD</item>
 	    <item>Both</item>
 	</string-array>
+	
 	<string name="showConfigButton">Save Settings</string>
 	<string name="logging_in_">Logging in...</string>
 </resources>

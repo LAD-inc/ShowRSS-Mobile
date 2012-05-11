@@ -14,7 +14,7 @@ public class User {
 		String htmlCode = "";
 		try 
 		{
-			htmlCode = HtmlCode.GetHtmlCode(url);
+			htmlCode = HtmlCode.GetHtmlCode(url, true);
 		} 
 		catch (IOException e) 
 		{

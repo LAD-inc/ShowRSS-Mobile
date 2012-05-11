@@ -6,10 +6,10 @@ import java.util.regex.Pattern;
 
 public class Show {
 
-	String showName;
-	int showId;
-	int hasHd = 0;
-	int hasProper = 0;
+	public String showName;
+	public int showId;
+	public int hasHd = 0;
+	public int hasProper = 0;
 	
 	public Show(String showName, int showId) {
 		super();
@@ -20,11 +20,13 @@ public class Show {
 	public Show(String showName) {
 		super();
 		this.showName = showName;
+		this.showId = Integer.parseInt(AllShows.showNameAsKey.get(showName));
 	}
 	
 	public Show(int showId) {
 		super();
 		this.showId = showId;
+		this.showName = AllShows.allshows.get(showId);
 	}
 	
 	@Override
@@ -32,37 +34,5 @@ public class Show {
 		return "Show [showName=" + showName + ", showId=" + showId + "]";
 	}
 	
-	public boolean getSettings() throws Exception
-	{
-		String settingsUrl = "http://showrss.karmorra.info/?cs=ajax&m=opts&show=" + this.showId;
 		
-		String htmlCode = "";
-		try 
-		{
-			htmlCode = HtmlCode.GetHtmlCode(settingsUrl);
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-			return false;
-		}
-		
-		
-		Pattern p = Pattern.compile("value=\"([0-9])\" selected");
-		Matcher m = p.matcher(htmlCode);
-		 
-		if (m.find())
-		{
-			this.hasHd = Integer.parseInt(m.group(1));
-			this.hasProper = Integer.parseInt(m.group(2));
-			
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
-	
 }

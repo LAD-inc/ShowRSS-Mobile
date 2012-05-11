@@ -23,14 +23,14 @@ public class LoadingDialog {
 	public void hideLoadingDialog() 
 	{
 		if (dialog.isShowing())
-			dialog.hide();
+			dialog.dismiss();
 	}
 	
 	public void toggleLoadingDialog(){
 		if (dialog != null)
 		{
 			if (dialog.isShowing()) 
-				dialog.hide();
+				dialog.dismiss();
 			else
 				dialog.show();			
 		}

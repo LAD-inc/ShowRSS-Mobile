@@ -6,7 +6,7 @@ public class AiredShowsTask {
 	
 	public void getShows() throws Exception
 	{
-		String htmlCode = HtmlCode.GetHtmlCode(airedShowsUrl);
+		String htmlCode = HtmlCode.GetHtmlCode(airedShowsUrl, true);
 		return;
 	}
 	
