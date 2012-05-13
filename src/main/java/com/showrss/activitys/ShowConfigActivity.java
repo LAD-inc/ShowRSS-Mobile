@@ -101,7 +101,7 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 			Toast.makeText(this, "You need to select a quality value.", Toast.LENGTH_SHORT).show();
 		}
 		
-		finish();
+		//finish();
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 		switch(v.getId())
 		{
 			case R.id.saveSettingsButton:
-		    	saveSettings();
+				new updateShowSettings().execute(showName);
 				break;
 			case R.id.deleteShowButton:
 				new deleteShow().execute(showName);
@@ -210,6 +210,53 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 				loadingDialog.hideLoadingDialog();
 				
 				displayToast("Deleted " + selectedShow);
+				
+				onBackPressed();
+			}
+				
+		}
+	}
+	
+	class updateShowSettings extends AsyncTask<String, Integer, String>
+	{
+		@Override
+		protected void onPreExecute()
+		{
+			loadingDialog.setMessage("Updating Settings...");
+			loadingDialog.showLoadingDialog();
+		}
+
+		@Override
+		protected String doInBackground(String... selectedShow)
+		{	
+			try 
+			{
+				saveSettings();
+				return selectedShow[0];
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+				return "earraid";
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(String selectedShow)
+		{
+			
+			if (selectedShow == "earraid")
+			{
+				loadingDialog.hideLoadingDialog();
+				switchActivity( LoginActivity.class);
+			}
+			else
+			{
+				Log.d(TAG, "Successfully deleted " + selectedShow );
+			
+				loadingDialog.hideLoadingDialog();
+				
+				displayToast("Updated Settings for " + selectedShow);
 				
 				onBackPressed();
 			}
