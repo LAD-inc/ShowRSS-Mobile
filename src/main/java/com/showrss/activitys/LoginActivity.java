@@ -56,6 +56,11 @@ public class LoginActivity extends Activity implements OnClickListener {
 				// user is already logged in
 				changeToMenu();
 			}
+			else
+			{
+				displayToast("Please Login");
+			}
+			
 		}
 		catch (Exception e) {
 			//Already at login Acitivty
