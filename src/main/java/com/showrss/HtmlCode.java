@@ -12,7 +12,7 @@ public class HtmlCode {
 	private static final String TAG = "HtmlCode";
 	static HttpClient httpclient = HttpClientHelper.getHttpClient();
 	
-	public static String GetHtmlCode(String url, boolean checkLoginStatus) throws Exception
+	public static String GetHtmlCode(String url, boolean checkForUserName) throws Exception
 	{
 		Log.d(TAG, "Fetching Html code for the following url: " + url);
 		
@@ -21,33 +21,35 @@ public class HtmlCode {
 		ResponseHandler<String> responseHandler = new BasicResponseHandler();
         htmlCode = httpclient.execute(httpget, responseHandler);
         
-        //Some pages do not contain the username, which is what we use to check is the user logged in
-        if (checkLoginStatus)
-        {	
-	        if (!checkLoginStatus(htmlCode))
-	        {
-	        	Log.d(TAG, "User is not logged in");
-	        	throw new Exception("You are not logged in");
-	        }
-        }    
+        if (!checkLoginStatus(htmlCode, checkForUserName))
+        {
+        	Log.d(TAG, "User is not logged in");
+        	throw new Exception("You are not logged in");
+        }
+        
         return htmlCode;
 	}
 	
-	public static boolean checkLoginStatus(String htmlCode)
+	public static boolean checkLoginStatus(String htmlCode, boolean checkForUserName)
 	{
-		String userName = "";
-		userName = User.extractUserName(htmlCode);
+		if(htmlCode.length() > 0)
+		{	
+			if (checkForUserName)
+			{	
+				String userName = "";
+				userName = User.extractUserName(htmlCode);
+				
+				if (userName != "")
+					return true;
+	
+			}
+			else
+				return true;
+		}
 		
-		if (userName != "")
-		{
-			//User is logged in
-			return true;
-		}
-		else
-		{
-			//user is not logged in
-			return false;
-		}
+		return false;
+
+
 	}
 	
 }
