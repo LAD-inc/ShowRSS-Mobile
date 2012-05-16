@@ -1,9 +1,5 @@
 package com.showrss;
 
-import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class Show {
 
 	public String showName;
