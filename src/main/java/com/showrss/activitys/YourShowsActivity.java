@@ -1,9 +1,5 @@
 package com.showrss.activitys;
 
-import com.showrss.AllShows;
-import com.showrss.LoadingDialog;
-import com.showrss.YourShows;
-import android.R;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,6 +9,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.showrss.AllShows;
+import com.showrss.LoadingDialog;
+import com.showrss.R;
+import com.showrss.Utilities;
+import com.showrss.YourShows;
 
 public class YourShowsActivity extends ListActivity{
 	
@@ -20,8 +23,12 @@ public class YourShowsActivity extends ListActivity{
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-        //populate the list of shows in the background
-        new getShows().execute();
+		if (Utilities.isOnline(this)) {
+	        //populate the list of shows in the background
+	        new getShows().execute();
+		} else {
+			displayToast(getString(R.string.no_internet_connection));
+		}
 		
 	}
 
@@ -56,7 +63,7 @@ public class YourShowsActivity extends ListActivity{
 	
 		setListAdapter(adapter);
 		
-		list = (ListView) findViewById(R.id.list);
+		list = (ListView) findViewById(android.R.id.list);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         	@Override
 			public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) 
@@ -126,4 +133,11 @@ public class YourShowsActivity extends ListActivity{
 		}
 		
 	}
+	
+	private void displayToast(String text) {
+
+		// Creates and displays a toast
+		Toast.makeText(this, getString(R.string.error_) + text, Toast.LENGTH_SHORT).show();
+	}
+	
 }

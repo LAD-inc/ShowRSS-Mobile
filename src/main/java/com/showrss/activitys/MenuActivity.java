@@ -2,6 +2,7 @@ package com.showrss.activitys;
 
 import com.showrss.R;
 import com.showrss.User;
+import com.showrss.Utilities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,61 +12,57 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class MenuActivity extends Activity implements OnClickListener{
-	
+public class MenuActivity extends Activity implements OnClickListener {
+
 	TextView userName;
 	private Button yourShows;
 	private Button addNewShows;
 	private Button aboutButton;
-	
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
-        
-        
-        setContentView(R.layout.main);
-        
-        userName = (TextView)findViewById(R.id.loggedInAsName);
-        try 
-        {
+
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		setContentView(R.layout.main);
+
+		userName = (TextView) findViewById(R.id.loggedInAsName);
+		try {
 			userName.setText(User.getUserName());
-		} 
-        catch (Exception e) 
-        {
-        	switchActivity(this, LoginActivity.class);
-        	
+		} catch (Exception e) {
+			switchActivity(this, LoginActivity.class);
+
 		}
-        
+
 		this.setupViews();
 		this.setupListeners();
-		
-    }
 
-	private void setupViews(){
-		yourShows = (Button)this.findViewById(R.id.yourShowsButton);
-		addNewShows = (Button)this.findViewById(R.id.addNewShowsButton);
-		aboutButton = (Button)this.findViewById(R.id.aboutButton);
 	}
-    
-    private void setupListeners(){
+
+	private void setupViews() {
+		yourShows = (Button) this.findViewById(R.id.yourShowsButton);
+		addNewShows = (Button) this.findViewById(R.id.addNewShowsButton);
+		aboutButton = (Button) this.findViewById(R.id.aboutButton);
+	}
+
+	private void setupListeners() {
 		yourShows.setOnClickListener(this);
 		addNewShows.setOnClickListener(this);
 		aboutButton.setOnClickListener(this);
 	}
 
-    public void switchActivity(Context packageContextName, @SuppressWarnings("rawtypes") Class className)
-    {
+	public void switchActivity(Context packageContextName, @SuppressWarnings("rawtypes") Class className) {
 		Intent myIntent = new Intent(packageContextName, className);
 		startActivity(myIntent);
-    }
-    
+	}
+
 	@Override
 	public void onClick(View v) {
-		switch(v.getId())
-		{
+
+		if (Utilities.isOnline(this)) {
+			switch (v.getId()) {
 			case R.id.yourShowsButton:
 				switchActivity(this, YourShowsActivity.class);
 				break;
@@ -76,7 +73,17 @@ public class MenuActivity extends Activity implements OnClickListener{
 				switchActivity(this, AboutActivity.class);
 				break;
 
+			}
+		} else {
+			displayToast(getString(R.string.no_internet_connection));
 		}
-		
+
 	}
+
+	private void displayToast(String text) {
+
+		// Creates and displays a toast
+		Toast.makeText(this, getString(R.string.error_) + text, Toast.LENGTH_SHORT).show();
+	}
+
 }

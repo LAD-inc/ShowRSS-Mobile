@@ -1,7 +1,10 @@
 package com.showrss.activitys;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +19,7 @@ import com.showrss.LoadingDialog;
 import com.showrss.LoginTask;
 import com.showrss.R;
 import com.showrss.User;
+import com.showrss.Utilities;
 
 public class LoginActivity extends Activity implements OnClickListener {
 
@@ -46,24 +50,20 @@ public class LoginActivity extends Activity implements OnClickListener {
 		super.onResume();
 		// TODO: cookie manager is not working yet
 		CookieSyncManager.getInstance().startSync();
-		
-		// Calls http request and if user name is present, it is already logged in
+
+		// Calls http request and if user name is present, it is already logged
+		// in
 		// and the and the login screen is not loaded
-		try 
-		{
-			if (User.getUserName() != "") 
-			{
+		try {
+			if (User.getUserName() != "") {
 				// user is already logged in
 				changeToMenu();
-			}
-			else
-			{
+			} else {
 				displayToast("Please Login");
 			}
-			
-		}
-		catch (Exception e) {
-			//Already at login Acitivty
+
+		} catch (Exception e) {
+			// Already at login Acitivty
 			e.printStackTrace();
 		}
 	}
@@ -89,8 +89,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 	}
 
 	private void displayToast(String text) {
+
 		// Creates and displays a toast
-		Toast.makeText(this, R.string.error_ + text, Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, getString(R.string.error_) + text, Toast.LENGTH_SHORT).show();
 	}
 
 	/**
@@ -103,26 +104,28 @@ public class LoginActivity extends Activity implements OnClickListener {
 		CookieSyncManager.getInstance().sync();
 
 		Intent myIntent = new Intent(this, MenuActivity.class);
-		try
-		{
+		try {
 			startActivity(myIntent);
-		}
-		finally
-		{
+		} finally {
 			finish();
 		}
 	}
 
 	@Override
 	public void onClick(View arg0) {
-		if (arg0.getId() == R.id.loginButton) {
 
-			// extract user name
-			this.username = uNameEdit.getText().toString();
-			this.password = passEdit.getText().toString();
+		if (Utilities.isOnline(this)) {
+			if (arg0.getId() == R.id.loginButton) {
 
-			LoginTask login = new LoginTask(this.username, this.password);
-			new LoginToRss().execute(login);
+				// extract user name
+				this.username = uNameEdit.getText().toString();
+				this.password = passEdit.getText().toString();
+
+				LoginTask login = new LoginTask(this.username, this.password);
+				new LoginToRss().execute(login);
+			}
+		} else {
+			displayToast(getString(R.string.no_internet_connection));
 		}
 
 	}
@@ -138,12 +141,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 			LoginTask newLogin = login[0];
 
-			try 
-			{
+			try {
 				return newLogin.attemptLogin();
-			} 
-			catch (Exception e) 
-			{
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return "Error";
@@ -156,10 +156,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 			if (result == null) {
 				loadingDialog.hideLoadingDialog();
 				changeToMenu();
-				
-			} 
-			else {
 
+			} else {
+				loadingDialog.hideLoadingDialog();
 				displayToast(result);
 			}
 

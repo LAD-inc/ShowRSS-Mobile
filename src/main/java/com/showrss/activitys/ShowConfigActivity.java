@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 import com.showrss.LoadingDialog;
 import com.showrss.R;
 import com.showrss.Show;
+import com.showrss.Utilities;
 import com.showrss.YourShows;
 
 public class ShowConfigActivity extends Activity implements OnItemSelectedListener, OnClickListener 
@@ -52,7 +52,12 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 		this.setupViews();
 		this.setupListeners();
 		
-		new getSettings().execute(showName);
+		if (Utilities.isOnline(this)) {
+			new getSettings().execute(showName);
+		} else {
+			displayToast(getString(R.string.no_internet_connection));
+		}
+		
 	}
 
 	private void setupViews() {
@@ -137,15 +142,20 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 
 	@Override
 	public void onClick(View v) {
-		switch(v.getId())
-		{
-			case R.id.saveSettingsButton:
-				new updateShowSettings().execute(showName);
-				break;
-			case R.id.deleteShowButton:
-				new deleteShow().execute(showName);
-				break;
+		if (Utilities.isOnline(this)) {
+			switch(v.getId())
+			{
+				case R.id.saveSettingsButton:
+					new updateShowSettings().execute(showName);
+					break;
+				case R.id.deleteShowButton:
+					new deleteShow().execute(showName);
+					break;
+			}
+		} else {
+			displayToast(getString(R.string.no_internet_connection));
 		}
+		
 		
 	}
 	
@@ -311,4 +321,5 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 		}
 	
 	}
+	
 }
