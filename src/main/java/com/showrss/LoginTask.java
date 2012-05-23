@@ -15,7 +15,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 import android.util.Log;
 
-public class LoginTask{
+public class LoginTask {
 	private static final String TAG = "LoginTask";
 	private final String userName, password;
 
@@ -23,15 +23,15 @@ public class LoginTask{
 		this.userName = userName;
 		this.password = password;
 	}
-	
+
 	public String attemptLogin() throws Exception {
-		
+
 		String error = "Unknown Error";
 		Log.d(TAG, "Attempting to login as: " + this.userName);
 
 		// Should we throw an exception on failed logins?
 		if (!validateUserName(this.password)) {
-			
+
 			error = "Invalid Login Name";
 			Log.d(TAG, error);
 			return error;
@@ -45,7 +45,7 @@ public class LoginTask{
 		try {
 			// Get the HttpClient and Post Header
 			HttpClient httpclient = HttpClientHelper.getHttpClient();
-			
+
 			HttpPost httppost = new HttpPost(loginURL);
 
 			// Add your data
@@ -53,37 +53,30 @@ public class LoginTask{
 			nameValuePairs.add(new BasicNameValuePair("username", this.userName));
 			nameValuePairs.add(new BasicNameValuePair("password", this.password));
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-			
 
 			// Execute HTTP Post Request and get response
 			HttpResponse response = httpclient.execute(httppost);
 
-			//Header[] y = response.getAllHeaders();
-			
+			// Header[] y = response.getAllHeaders();
+
 			Header[] locations = response.getHeaders("location");
-			
+
 			String locationString = locations[0].toString();
-			
+
 			System.out.println(locationString);
-			if (locationString.contains("err="))
-			{
-				if (locationString.contains("err=password"))
-				{
+			if (locationString.contains("err=")) {
+				if (locationString.contains("err=password")) {
 					error = "Password is incorrect";
-				}
-				else if (locationString.contains("err=user"))
-				{
+				} else if (locationString.contains("err=user")) {
 					error = "User Name does not exist";
 				}
-				
+
 				Log.d(TAG, error);
 				return error;
-				
+
 			}
-			
-			
-			if("" != User.getUserName())
-			{
+
+			if ("" != Utilities.getUserName()) {
 				return null;
 			}
 

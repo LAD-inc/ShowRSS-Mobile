@@ -1,7 +1,6 @@
 package com.showrss.activitys;
 
 import com.showrss.R;
-import com.showrss.User;
 import com.showrss.Utilities;
 
 import android.app.Activity;
@@ -30,7 +29,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 		userName = (TextView) findViewById(R.id.loggedInAsName);
 		try {
-			userName.setText(User.getUserName());
+			userName.setText(Utilities.getUserName());
 		} catch (Exception e) {
 			switchActivity(this, LoginActivity.class);
 

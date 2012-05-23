@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.showrss.LoadingDialog;
 import com.showrss.LoginTask;
 import com.showrss.R;
-import com.showrss.User;
 import com.showrss.Utilities;
 
 public class LoginActivity extends Activity implements OnClickListener {
@@ -52,7 +51,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		// in
 		// and the and the login screen is not loaded
 		try {
-			if (User.getUserName() != "") {
+			if (Utilities.getUserName() != "") {
 				// user is already logged in
 				changeToMenu();
 			} else {
