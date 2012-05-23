@@ -11,8 +11,10 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
@@ -39,6 +41,7 @@ import com.showrss.Register;
 import com.showrss.User;
 import com.showrss.Utilities;
 import com.showrss.activitys.LoginActivity.LoginToRss;
+import com.showrss.activitys.YourShowsActivity.getShows;
 
 public class RegisterActivity extends Activity implements OnClickListener{
 	
@@ -58,8 +61,11 @@ public class RegisterActivity extends Activity implements OnClickListener{
 	ImageView captchaImage;
 	
 	LoadingDialog loadingDialog;
+	
+	ArrayList<String> errors;
 
 	private Button registerButton;
+	private Button newCaptchaButton;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +77,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 	
 			this.setupViews();
 			this.setupListeners();
+			
 		}
 		catch (Exception e)
 		{
@@ -82,18 +89,31 @@ public class RegisterActivity extends Activity implements OnClickListener{
 			e.printStackTrace();
 		}
 	}
-
-
+	
 	@Override
-	public void onPause() {
-		super.onPause();
-		// TODO: cookie manager is not working yet
-		CookieSyncManager.getInstance().stopSync();
-
+	protected void onResume() {
+		super.onResume();
+		getCaptcha();
+		
+	}
+	
+	private void getCaptcha()
+	{
+		//Reset Errors so old errors aren't shown
+		errors = null;
+		if (Utilities.isOnline(this)) {
+	        //Download a new captcha and display it
+			new LoadCaptchaDetails().execute();
+		} 
+		else 
+		{
+			displayToast(getString(R.string.no_internet_connection));
+		}
 	}
 
 	private void setupViews() {
 		registerButton = (Button) this.findViewById(R.id.registerButton);
+		newCaptchaButton = (Button) this.findViewById(R.id.newCaptchaButton);
 		
 		uNameEdit = (EditText) findViewById(R.id.username);
 		passEdit = (EditText) findViewById(R.id.password);
@@ -103,12 +123,11 @@ public class RegisterActivity extends Activity implements OnClickListener{
 		captchaImage = (ImageView) findViewById(R.id.captchaImage);
 		loadingDialog = new LoadingDialog(this, getString(R.string.loading_captcha));
 		
-		new LoadCaptchaDetails().execute();
-		
 	}
 
 	private void setupListeners() {
 		registerButton.setOnClickListener(this);
+		newCaptchaButton.setOnClickListener(this);
 
 	}
 
@@ -139,6 +158,15 @@ public class RegisterActivity extends Activity implements OnClickListener{
 		Intent myIntent = new Intent(packageContextName, className);
 		startActivity(myIntent);
 	}
+	
+	private void changeToShowConfigActivity()
+    {
+    	Intent intent = new Intent(this, DisplayErrorActivity.class);
+    	intent.putStringArrayListExtra("errorList", errors);
+    	intent.putExtra("title", "Registration Errors");
+    	
+    	startActivityForResult(intent, 2);
+    }
 
 	@Override
 	public void onClick(View v) {
@@ -148,12 +176,16 @@ public class RegisterActivity extends Activity implements OnClickListener{
 			switch (v.getId()) 
 			{
 				case R.id.registerButton:
-					// extract user name
+					//Get values from inputs and register
 					this.username = uNameEdit.getText().toString();
 					this.password = passEdit.getText().toString();
 					this.repeatPassword = repeatPassEdit.getText().toString();
 					this.captchaText = captchaEdit.getText().toString();
 					new RegisterAttempt().execute();
+					break;
+				case R.id.newCaptchaButton:
+					//Load a new captcha
+					getCaptcha();
 					break;
 			}
 
@@ -165,7 +197,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 
 	}
 	
-	public boolean loadCaptcha() throws Exception
+	public boolean getNewCaptcha() throws Exception
 	{
 		this.register = new Register();
 
@@ -189,39 +221,17 @@ public class RegisterActivity extends Activity implements OnClickListener{
 	{
 		
 
-		// TODO: Get this working
-		// String loginURL = getString(R.string.loginURL);
-
-		String registerURL = "http://showrss.karmorra.info/?cs=register";
-
 		try {
-			// Get the HttpClient and Post Header
-			HttpClient httpclient = HttpClientHelper.getHttpClient();
 			
-			HttpPost httppost = new HttpPost(registerURL);
-
-			// Add your data
-			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-			nameValuePairs.add(new BasicNameValuePair("username", this.username));
-			nameValuePairs.add(new BasicNameValuePair("password", this.password));
-			//TODO: We should validate these are the same without going to the website to save data
-			nameValuePairs.add(new BasicNameValuePair("rpassword", this.repeatPassword));
+			String htmlCode = this.register.sendRegisterRequest(this.username, this.password, this.repeatPassword, this.captchaText);			
 			
-			
-			nameValuePairs.add(new BasicNameValuePair("recaptcha_response_field", this.captchaText));
-			nameValuePairs.add(new BasicNameValuePair("recaptcha_challenge_field", this.register.captchaKey));
-			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-			
-
-			// Execute HTTP Post Request and get response
-			HttpResponse response = httpclient.execute(httppost);
-
-			//TODO parse errors and display to them to the user
-			
-			
-			if("" != User.getUserName())
+			if("" != User.extractUserName(htmlCode))
 			{
 				return true;
+			}
+			else
+			{
+				errors = this.register.extractErrors(htmlCode);
 			}
 
 		} catch (MalformedURLException e) {
@@ -241,6 +251,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 	class LoadCaptchaDetails extends AsyncTask<String, Integer, String> {
 		@Override
 		protected void onPreExecute() {
+			loadingDialog.setMessage(getString(R.string.loading_captcha));
 			loadingDialog.showLoadingDialog();
 		}
 
@@ -250,7 +261,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 
 			try 
 			{
-				loadCaptcha();
+				getNewCaptcha();
 				return "";
 			} 
 			catch (Exception e) 
@@ -308,8 +319,16 @@ public class RegisterActivity extends Activity implements OnClickListener{
 				loadingDialog.hideLoadingDialog();
 				changeToMenu();
 
-			} else {
+			} 
+			else 
+			{
 				loadingDialog.hideLoadingDialog();
+				if (errors == null)
+					errors.add("Unkown Error");
+				
+				
+				changeToShowConfigActivity();
+					
 				
 			}
 

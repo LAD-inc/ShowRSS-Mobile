@@ -16,7 +16,11 @@
     <!-- Register Screen -->
     <string name="repeatPassword">Repeat Password: </string>
     <string name="captcha">Please Complete Captcha: </string>
-    <string name="register">Register </string>
+    <string name="register">Register</string>
+    <string name="newCaptcha">New Captcha</string>
+    
+    <!-- Register Errors Screens -->
+    <string name="registerErrorTitle">Registration Errors</string>
     
 	<!--About screen -->
 	<string name="aboutShowRSS">About ShowRSS</string>
