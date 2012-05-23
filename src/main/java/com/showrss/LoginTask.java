@@ -13,6 +13,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
+
+import com.showrss.utilities.HttpClientHelper;
+import com.showrss.utilities.Utilities;
+
 import android.util.Log;
 
 public class LoginTask {

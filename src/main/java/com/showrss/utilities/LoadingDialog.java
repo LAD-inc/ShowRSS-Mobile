@@ -1,4 +1,4 @@
-package com.showrss;
+package com.showrss.utilities;
 
 import android.app.ProgressDialog;
 import android.content.Context;

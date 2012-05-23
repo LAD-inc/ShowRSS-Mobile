@@ -12,10 +12,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.showrss.AllShows;
-import com.showrss.LoadingDialog;
 import com.showrss.R;
-import com.showrss.Utilities;
 import com.showrss.YourShows;
+import com.showrss.utilities.LoadingDialog;
+import com.showrss.utilities.Utilities;
 
 public class YourShowsActivity extends ListActivity{
 	

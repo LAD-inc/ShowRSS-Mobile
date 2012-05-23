@@ -12,10 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.showrss.LoadingDialog;
 import com.showrss.LoginTask;
 import com.showrss.R;
-import com.showrss.Utilities;
+import com.showrss.utilities.LoadingDialog;
+import com.showrss.utilities.Utilities;
 
 public class LoginActivity extends Activity implements OnClickListener {
 

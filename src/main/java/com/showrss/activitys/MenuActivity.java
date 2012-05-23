@@ -1,7 +1,7 @@
 package com.showrss.activitys;
 
 import com.showrss.R;
-import com.showrss.Utilities;
+import com.showrss.utilities.Utilities;
 
 import android.app.Activity;
 import android.content.Context;

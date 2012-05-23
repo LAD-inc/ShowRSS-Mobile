@@ -20,7 +20,7 @@ public class YourShows {
 	public static List<Show> getShows() throws Exception {
 		String htmlCode = "";
 		try {
-			htmlCode = HtmlCode.GetHtmlCode(url, true);
+			htmlCode = HtmlCode.getHtmlCode(url, true);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
@@ -89,7 +89,7 @@ public class YourShows {
 	public static void addShow(String showName) throws Exception {
 		String showId = AllShows.showNameAsKey.get(showName);
 		try {
-			HtmlCode.GetHtmlCode(addShowUrl + showId, false);
+			HtmlCode.getHtmlCode(addShowUrl + showId, false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -100,7 +100,7 @@ public class YourShows {
 	public static void deleteShow(String showName) throws Exception {
 		String showId = AllShows.showNameAsKey.get(showName);
 		try {
-			HtmlCode.GetHtmlCode(deleteShowUrl + showId, false);
+			HtmlCode.getHtmlCode(deleteShowUrl + showId, false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -140,7 +140,7 @@ public class YourShows {
 		String url = optsShowUrl + showId + "&hashd=" + hasHd + "&hasproper=" + hasProper;
 
 		try {
-			HtmlCode.GetHtmlCode(url, false);
+			HtmlCode.getHtmlCode(url, false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -156,7 +156,7 @@ public class YourShows {
 
 		String htmlCode = "";
 		try {
-			htmlCode = HtmlCode.GetHtmlCode(settingsUrl, false);
+			htmlCode = HtmlCode.getHtmlCode(settingsUrl, false);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return show;

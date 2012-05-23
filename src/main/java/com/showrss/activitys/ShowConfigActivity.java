@@ -15,11 +15,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.showrss.LoadingDialog;
 import com.showrss.R;
-import com.showrss.Utilities;
 import com.showrss.YourShows;
 import com.showrss.domain.Show;
+import com.showrss.utilities.LoadingDialog;
+import com.showrss.utilities.Utilities;
 
 public class ShowConfigActivity extends Activity implements OnItemSelectedListener, OnClickListener {
 	private static final String TAG = "ShowConfigActivity";

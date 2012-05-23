@@ -31,13 +31,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.showrss.HttpClientHelper;
-import com.showrss.LoadingDialog;
 import com.showrss.LoginTask;
 import com.showrss.R;
 import com.showrss.Register;
-import com.showrss.Utilities;
 import com.showrss.activitys.LoginActivity.LoginToRss;
+import com.showrss.utilities.HttpClientHelper;
+import com.showrss.utilities.LoadingDialog;
+import com.showrss.utilities.Utilities;
 
 public class RegisterActivity extends Activity implements OnClickListener{
 	

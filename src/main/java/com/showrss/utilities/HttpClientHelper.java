@@ -1,4 +1,4 @@
-package com.showrss;
+package com.showrss.utilities;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.params.HttpClientParams;

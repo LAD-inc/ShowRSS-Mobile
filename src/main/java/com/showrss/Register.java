@@ -18,7 +18,7 @@ public class Register {
 		String htmlCode = "";
 		try 
 		{
-			htmlCode = HtmlCode.GetHtmlCode(url, false);
+			htmlCode = HtmlCode.getHtmlCode(url, false);
 		} 
 		catch (IOException e) 
 		{
@@ -32,7 +32,7 @@ public class Register {
 		htmlCode = "";
 		try 
 		{
-			htmlCode = HtmlCode.GetHtmlCode(captchaUrl + captchaChallengeKey, false);
+			htmlCode = HtmlCode.getHtmlCode(captchaUrl + captchaChallengeKey, false);
 		} 
 		catch (IOException e) 
 		{
