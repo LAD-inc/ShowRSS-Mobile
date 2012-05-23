@@ -13,6 +13,11 @@
     <string name="aboutButton">About</string>
     <string name="exitButton">Exit</string>
     
+    <!-- Register Screen -->
+    <string name="repeatPassword">Repeat Password: </string>
+    <string name="captcha">Please Complete Captcha: </string>
+    <string name="register">Register </string>
+    
 	<!--About screen -->
 	<string name="aboutShowRSS">About ShowRSS</string>
 	<string name="aboutShowRSSText">showRSS is a service that allows you to keep track of your favorite TV shows. You pick your favorite shows from the list, then you subscribe to your feed. You can subscribe with your torrent client, so latest episodes are automatically downloaded, or add the feed to your browser or feed reader if you want to keep track of latest torrents. Other features also include tracking of your show schedule, so you know exactly when a new episode will air.</string>

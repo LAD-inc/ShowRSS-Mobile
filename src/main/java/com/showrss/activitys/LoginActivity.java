@@ -27,6 +27,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	LoadingDialog loadingDialog;
 
 	private Button loginButton;
+	private Button registerButton;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -74,12 +75,14 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 	private void setupViews() {
 		loginButton = (Button) this.findViewById(R.id.loginButton);
+		registerButton = (Button) this.findViewById(R.id.registerButton);
 
 		loadingDialog = new LoadingDialog(this, getString(R.string.logging_in_));
 	}
 
 	private void setupListeners() {
 		loginButton.setOnClickListener(this);
+		registerButton.setOnClickListener(this);
 		uNameEdit = (EditText) findViewById(R.id.username);
 		passEdit = (EditText) findViewById(R.id.password);
 	}
@@ -106,21 +109,42 @@ public class LoginActivity extends Activity implements OnClickListener {
 			finish();
 		}
 	}
+	
+	public void changeToRegister() {
+		Log.d("LoginActivity", "Changing to Register");
+
+		CookieSyncManager.getInstance().sync();
+
+		Intent myIntent = new Intent(this, RegisterActivity.class);
+		try {
+			startActivity(myIntent);
+		} finally {
+			finish();
+		}
+	}
 
 	@Override
-	public void onClick(View arg0) {
+	public void onClick(View v) {
 
-		if (Utilities.isOnline(this)) {
-			if (arg0.getId() == R.id.loginButton) {
+		if (Utilities.isOnline(this)) 
+		{
+			switch (v.getId()) 
+			{
+				case R.id.loginButton:
+					// extract user name
+					this.username = uNameEdit.getText().toString();
+					this.password = passEdit.getText().toString();
+	
+					LoginTask login = new LoginTask(this.username, this.password);
+					new LoginToRss().execute(login);
+					break;
+				case R.id.registerButton:
+					changeToRegister();
+					break;
 
-				// extract user name
-				this.username = uNameEdit.getText().toString();
-				this.password = passEdit.getText().toString();
-
-				LoginTask login = new LoginTask(this.username, this.password);
-				new LoginToRss().execute(login);
 			}
-		} else {
+		} 
+		else {
 			displayToast(getString(R.string.no_internet_connection));
 		}
 
