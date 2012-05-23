@@ -2,10 +2,7 @@ package com.showrss.activitys;
 
 import java.util.List;
 
-import com.showrss.LoadingDialog;
 import com.showrss.R;
-import com.showrss.activitys.RegisterActivity.LoadCaptchaDetails;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;

@@ -17,7 +17,7 @@ public class AllShows {
 		String htmlCode = "";
 		try 
 		{
-			htmlCode = HtmlCode.GetHtmlCode(url, true);
+			htmlCode = HtmlCode.getHtmlCode(url, true);
 		} 
 		catch (IOException e) 
 		{

@@ -5,18 +5,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -33,15 +21,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.showrss.HttpClientHelper;
-import com.showrss.LoadingDialog;
-import com.showrss.LoginTask;
 import com.showrss.R;
 import com.showrss.Register;
-import com.showrss.User;
-import com.showrss.Utilities;
-import com.showrss.activitys.LoginActivity.LoginToRss;
-import com.showrss.activitys.YourShowsActivity.getShows;
+import com.showrss.utilities.LoadingDialog;
+import com.showrss.utilities.Utilities;
 
 public class RegisterActivity extends Activity implements OnClickListener{
 	
@@ -225,7 +208,8 @@ public class RegisterActivity extends Activity implements OnClickListener{
 			
 			String htmlCode = this.register.sendRegisterRequest(this.username, this.password, this.repeatPassword, this.captchaText);			
 			
-			if("" != User.extractUserName(htmlCode))
+
+			if("" != Utilities.getUserName())
 			{
 				return true;
 			}

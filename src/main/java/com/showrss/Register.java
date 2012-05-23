@@ -1,7 +1,6 @@
 package com.showrss;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -16,6 +15,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.showrss.utilities.HttpClientHelper;
+
 public class Register {
 	
 	public String captchaImageUrl;
@@ -29,12 +30,13 @@ public class Register {
 	
 	public boolean getRegisterDetails() throws Exception
 	{
-		String captchaUrl = "http://api.recaptcha.net/challenge?k=";
 		
 		String htmlCode = "";
 		try 
 		{
-			htmlCode = HtmlCode.GetHtmlCode(REGISTER_URL, false);
+
+			htmlCode = HtmlCode.getHtmlCode(REGISTER_URL, false);
+
 		} 
 		catch (IOException e) 
 		{
@@ -48,7 +50,7 @@ public class Register {
 		htmlCode = "";
 		try 
 		{
-			htmlCode = HtmlCode.GetHtmlCode(CAPTCHA_INFO_URL + captchaChallengeKey, false);
+			htmlCode = HtmlCode.getHtmlCode(CAPTCHA_INFO_URL + captchaChallengeKey, false);
 		} 
 		catch (IOException e) 
 		{
