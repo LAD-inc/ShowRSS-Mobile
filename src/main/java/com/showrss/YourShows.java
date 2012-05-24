@@ -65,15 +65,33 @@ public class YourShows {
 		}
 
 	}
-
-	public static String[] showsAsArray() {
-		int i;
-		String[] showName = new String[shows.size()];
-		for (i = 0; i < shows.size(); i++) {
-			showName[i] = shows.get(i).getShowName();
+	
+	public static boolean hasShows() {
+		
+		if (shows != null)
+		{
+			if(!shows.isEmpty())
+				return true;
 		}
 
-		return showName;
+		return false;
+	}
+	
+	public static String[] showsAsArray() {
+		
+		if (YourShows.hasShows())
+		{
+			int i;
+			String[] showName = new String[shows.size()];
+			for (i = 0; i < shows.size(); i++) {
+				showName[i] = shows.get(i).getShowName();
+			}
+			return showName;
+		}
+		else
+		{
+			return new String[] {"You are not subscribed to any shows"};
+		}
 	}
 
 	public static String[] availableShowsAsArray() {

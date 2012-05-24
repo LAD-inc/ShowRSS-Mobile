@@ -64,13 +64,18 @@ public class YourShowsActivity extends ListActivity{
 		setListAdapter(adapter);
 		
 		list = (ListView) findViewById(android.R.id.list);
+		
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         	@Override
 			public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) 
         	{
-        		changeToShowConfigActivity((String)list.getItemAtPosition(position));
+        		if (YourShows.hasShows())
+        			changeToShowConfigActivity((String)list.getItemAtPosition(position));
 			}
         });
+		
+
 	}
 	
 	private void changeToShowConfigActivity(String argShowName)

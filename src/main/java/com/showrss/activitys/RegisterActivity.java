@@ -200,23 +200,20 @@ public class RegisterActivity extends Activity implements OnClickListener{
 
 	}
 	
-	public boolean attemptRegister() throws Exception
+	public boolean attemptRegister()
 	{
-		
+		String htmlCode= "";
 
 		try {
 			
-			String htmlCode = this.register.sendRegisterRequest(this.username, this.password, this.repeatPassword, this.captchaText);			
+			htmlCode = this.register.sendRegisterRequest(this.username, this.password, this.repeatPassword, this.captchaText);			
 			
 
 			if("" != Utilities.getUserName())
 			{
 				return true;
 			}
-			else
-			{
-				errors = this.register.extractErrors(htmlCode);
-			}
+			
 
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -224,9 +221,12 @@ public class RegisterActivity extends Activity implements OnClickListener{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		
+		errors = this.register.extractErrors(htmlCode);
 		return false;
 	}
 	
@@ -308,7 +308,11 @@ public class RegisterActivity extends Activity implements OnClickListener{
 			{
 				loadingDialog.hideLoadingDialog();
 				if (errors == null)
+				{
+					errors = new ArrayList<String>();
 					errors.add("Unkown Error");
+				}
+					
 				
 				
 				changeToShowConfigActivity();
