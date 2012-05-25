@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.ladinc.showrss.Register;
 import com.ladinc.showrss.utilities.LoadingDialog;
 import com.ladinc.showrss.utilities.Utilities;
-import com.showrss.R;
+import com.ladinc.showrss.R;
 
 public class RegisterActivity extends Activity implements OnClickListener{
 	

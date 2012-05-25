@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.ladinc.showrss.LoginTask;
 import com.ladinc.showrss.utilities.LoadingDialog;
 import com.ladinc.showrss.utilities.Utilities;
-import com.showrss.R;
+import com.ladinc.showrss.R;
 
 public class LoginActivity extends Activity implements OnClickListener {
 

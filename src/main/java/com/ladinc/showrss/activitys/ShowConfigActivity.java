@@ -19,7 +19,7 @@ import com.ladinc.showrss.YourShows;
 import com.ladinc.showrss.domain.Show;
 import com.ladinc.showrss.utilities.LoadingDialog;
 import com.ladinc.showrss.utilities.Utilities;
-import com.showrss.R;
+import com.ladinc.showrss.R;
 
 public class ShowConfigActivity extends Activity implements OnItemSelectedListener, OnClickListener {
 	private static final String TAG = "ShowConfigActivity";

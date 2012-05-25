@@ -1,7 +1,7 @@
 package com.ladinc.showrss.activitys;
 
 import com.ladinc.showrss.utilities.Utilities;
-import com.showrss.R;
+import com.ladinc.showrss.R;
 
 import android.app.Activity;
 import android.content.Context;

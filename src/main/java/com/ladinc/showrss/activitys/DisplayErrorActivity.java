@@ -2,7 +2,7 @@ package com.ladinc.showrss.activitys;
 
 import java.util.List;
 
-import com.showrss.R;
+import com.ladinc.showrss.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;

@@ -4,7 +4,7 @@ import com.ladinc.showrss.AllShows;
 import com.ladinc.showrss.YourShows;
 import com.ladinc.showrss.utilities.LoadingDialog;
 import com.ladinc.showrss.utilities.Utilities;
-import com.showrss.R;
+import com.ladinc.showrss.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -46,7 +46,7 @@ public class AddNewShowsActivity extends Activity implements OnClickListener {
 
 	private void setupViews() {
 		addShow = (Button) this.findViewById(R.id.addShowButton);
-		loadingDialog = new LoadingDialog(this, getString(com.showrss.R.string.getting_shows));
+		loadingDialog = new LoadingDialog(this, getString(com.ladinc.showrss.R.string.getting_shows));
 	}
 
 	private void setupListeners() {
@@ -146,7 +146,7 @@ public class AddNewShowsActivity extends Activity implements OnClickListener {
 	class addShow extends AsyncTask<String, Integer, String> {
 		@Override
 		protected void onPreExecute() {
-			loadingDialog.setMessage(getString(com.showrss.R.string.adding_show));
+			loadingDialog.setMessage(getString(com.ladinc.showrss.R.string.adding_show));
 			loadingDialog.showLoadingDialog();
 		}
 

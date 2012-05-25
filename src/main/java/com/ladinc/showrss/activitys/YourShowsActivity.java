@@ -15,7 +15,7 @@ import com.ladinc.showrss.AllShows;
 import com.ladinc.showrss.YourShows;
 import com.ladinc.showrss.utilities.LoadingDialog;
 import com.ladinc.showrss.utilities.Utilities;
-import com.showrss.R;
+import com.ladinc.showrss.R;
 
 public class YourShowsActivity extends ListActivity{
 	
@@ -51,7 +51,7 @@ public class YourShowsActivity extends ListActivity{
     
     private void setupViews() 
     {
-		loadingDialog = new LoadingDialog(this, getString(com.showrss.R.string.getting_shows));
+		loadingDialog = new LoadingDialog(this, getString(com.ladinc.showrss.R.string.getting_shows));
 	}
 
     
