@@ -1,4 +1,4 @@
-package com.showrss.activitys;
+package com.ladinc.showrss.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,10 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.showrss.LoginTask;
+import com.ladinc.showrss.LoginTask;
+import com.ladinc.showrss.utilities.LoadingDialog;
+import com.ladinc.showrss.utilities.Utilities;
 import com.showrss.R;
-import com.showrss.utilities.LoadingDialog;
-import com.showrss.utilities.Utilities;
 
 public class LoginActivity extends Activity implements OnClickListener {
 

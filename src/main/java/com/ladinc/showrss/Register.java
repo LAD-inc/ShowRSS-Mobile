@@ -1,4 +1,4 @@
-package com.showrss;
+package com.ladinc.showrss;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.showrss.utilities.HttpClientHelper;
+import com.ladinc.showrss.utilities.HttpClientHelper;
 
 public class Register {
 	

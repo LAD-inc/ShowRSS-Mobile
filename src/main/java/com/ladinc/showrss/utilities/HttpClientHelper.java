@@ -1,4 +1,4 @@
-package com.showrss.utilities;
+package com.ladinc.showrss.utilities;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.params.HttpClientParams;

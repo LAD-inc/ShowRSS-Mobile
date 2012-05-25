@@ -1,12 +1,12 @@
-package com.showrss;
+package com.ladinc.showrss;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 
-import com.showrss.utilities.HttpClientHelper;
-import com.showrss.utilities.Utilities;
+import com.ladinc.showrss.utilities.HttpClientHelper;
+import com.ladinc.showrss.utilities.Utilities;
 
 import android.util.Log;
 

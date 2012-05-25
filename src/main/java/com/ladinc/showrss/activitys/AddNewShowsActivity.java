@@ -1,10 +1,10 @@
-package com.showrss.activitys;
+package com.ladinc.showrss.activitys;
 
-import com.showrss.AllShows;
+import com.ladinc.showrss.AllShows;
+import com.ladinc.showrss.YourShows;
+import com.ladinc.showrss.utilities.LoadingDialog;
+import com.ladinc.showrss.utilities.Utilities;
 import com.showrss.R;
-import com.showrss.YourShows;
-import com.showrss.utilities.LoadingDialog;
-import com.showrss.utilities.Utilities;
 
 import android.app.Activity;
 import android.content.Intent;

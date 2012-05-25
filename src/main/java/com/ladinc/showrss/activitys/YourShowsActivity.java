@@ -1,4 +1,4 @@
-package com.showrss.activitys;
+package com.ladinc.showrss.activitys;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -11,11 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.showrss.AllShows;
+import com.ladinc.showrss.AllShows;
+import com.ladinc.showrss.YourShows;
+import com.ladinc.showrss.utilities.LoadingDialog;
+import com.ladinc.showrss.utilities.Utilities;
 import com.showrss.R;
-import com.showrss.YourShows;
-import com.showrss.utilities.LoadingDialog;
-import com.showrss.utilities.Utilities;
 
 public class YourShowsActivity extends ListActivity{
 	

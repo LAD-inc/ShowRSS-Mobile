@@ -1,4 +1,4 @@
-package com.showrss.activitys;
+package com.ladinc.showrss.activitys;
 
 import com.showrss.R;
 

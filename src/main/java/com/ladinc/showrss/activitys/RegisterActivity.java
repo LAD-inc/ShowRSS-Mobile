@@ -1,4 +1,4 @@
-package com.showrss.activitys;
+package com.ladinc.showrss.activitys;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,10 +21,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.ladinc.showrss.Register;
+import com.ladinc.showrss.utilities.LoadingDialog;
+import com.ladinc.showrss.utilities.Utilities;
 import com.showrss.R;
-import com.showrss.Register;
-import com.showrss.utilities.LoadingDialog;
-import com.showrss.utilities.Utilities;
 
 public class RegisterActivity extends Activity implements OnClickListener{
 	

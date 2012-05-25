@@ -43,7 +43,7 @@
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".activitys.DisplayErrorActivity"
+            android:name="com.ladinc.showrss.activitys.DisplayErrorActivity"
             android:theme="@android:style/Theme.Dialog"
             android:label="@string/app_name">
         </activity>

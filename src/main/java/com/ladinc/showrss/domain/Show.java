@@ -1,6 +1,6 @@
-package com.showrss.domain;
+package com.ladinc.showrss.domain;
 
-import com.showrss.AllShows;
+import com.ladinc.showrss.AllShows;
 
 /**
  * Setter/Getter object for Show's

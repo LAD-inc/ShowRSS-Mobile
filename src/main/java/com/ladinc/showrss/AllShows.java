@@ -1,4 +1,4 @@
-package com.showrss;
+package com.ladinc.showrss;
 
 import java.io.IOException;
 import java.util.HashMap;

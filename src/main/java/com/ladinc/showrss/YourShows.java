@@ -1,4 +1,4 @@
-package com.showrss;
+package com.ladinc.showrss;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.showrss.domain.Show;
+import com.ladinc.showrss.domain.Show;
 
 public class YourShows {
 

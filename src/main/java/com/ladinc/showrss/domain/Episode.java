@@ -1,4 +1,4 @@
-package com.showrss.domain;
+package com.ladinc.showrss.domain;
 
 import java.util.Date;
 

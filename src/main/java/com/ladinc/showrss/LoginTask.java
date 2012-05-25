@@ -1,4 +1,4 @@
-package com.showrss;
+package com.ladinc.showrss;
 
 //TODO: Fix imports
 import java.io.*;
@@ -14,8 +14,8 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.showrss.utilities.HttpClientHelper;
-import com.showrss.utilities.Utilities;
+import com.ladinc.showrss.utilities.HttpClientHelper;
+import com.ladinc.showrss.utilities.Utilities;
 
 import android.util.Log;
 

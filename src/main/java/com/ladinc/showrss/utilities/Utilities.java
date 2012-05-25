@@ -1,10 +1,10 @@
-package com.showrss.utilities;
+package com.ladinc.showrss.utilities;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.showrss.HtmlCode;
+import com.ladinc.showrss.HtmlCode;
 
 import android.app.Activity;
 import android.content.Context;

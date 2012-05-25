@@ -1,4 +1,4 @@
-package com.showrss.activitys;
+package com.ladinc.showrss.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,11 +15,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ladinc.showrss.YourShows;
+import com.ladinc.showrss.domain.Show;
+import com.ladinc.showrss.utilities.LoadingDialog;
+import com.ladinc.showrss.utilities.Utilities;
 import com.showrss.R;
-import com.showrss.YourShows;
-import com.showrss.domain.Show;
-import com.showrss.utilities.LoadingDialog;
-import com.showrss.utilities.Utilities;
 
 public class ShowConfigActivity extends Activity implements OnItemSelectedListener, OnClickListener {
 	private static final String TAG = "ShowConfigActivity";
