@@ -11,6 +11,8 @@
     <string name="airedEpisodes">Aired Episodes</string>
     <string name="upcomingEpisodes">Upcoming Episodes</string>
     <string name="aboutButton">About</string>
+    <string name="scheduleButton">Schedule</string>
+
     <string name="exitButton">Exit</string>
     
     <!-- Register Screen -->

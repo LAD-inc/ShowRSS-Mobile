@@ -19,6 +19,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 	private Button yourShows;
 	private Button addNewShows;
 	private Button aboutButton;
+	private Button scheduleButtton;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -43,6 +44,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 	private void setupViews() {
 		yourShows = (Button) this.findViewById(R.id.yourShowsButton);
 		addNewShows = (Button) this.findViewById(R.id.addNewShowsButton);
+		scheduleButtton = (Button) this.findViewById(R.id.scheduleButton);
 		aboutButton = (Button) this.findViewById(R.id.aboutButton);
 	}
 
@@ -50,6 +52,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 		yourShows.setOnClickListener(this);
 		addNewShows.setOnClickListener(this);
 		aboutButton.setOnClickListener(this);
+		scheduleButtton.setOnClickListener(this);
 	}
 
 	public void switchActivity(Context packageContextName, @SuppressWarnings("rawtypes") Class className) {
@@ -67,6 +70,9 @@ public class MenuActivity extends Activity implements OnClickListener {
 				break;
 			case R.id.addNewShowsButton:
 				switchActivity(this, AddNewShowsActivity.class);
+				break;
+			case R.id.scheduleButton:	
+				switchActivity(this, ScheduleActivity.class);
 				break;
 			case R.id.aboutButton:
 				switchActivity(this, AboutActivity.class);
