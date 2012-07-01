@@ -46,6 +46,8 @@
 	    <item>Both</item>
 	</string-array>
 	
+	<string name="loadSchedule">Loading Schedule...</string>
+	
 	<string name="showConfigButton">Save Settings</string>
 	<string name="logging_in_">Logging in...</string>
 	<string name="no_internet_connection">No Internet Connection</string>

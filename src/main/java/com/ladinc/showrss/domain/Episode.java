@@ -1,5 +1,6 @@
 package com.ladinc.showrss.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -30,6 +31,16 @@ public class Episode {
 		this.episode = episode;
 		this.airDate = date;
 		this.tvComUrl = url;
+	}
+	
+	public String toStringForList()
+	{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String dateString = dateFormat.format(this.airDate);
+		return dateString + " - " +
+			   this.showName + ": " +
+			   this.season + "x" + this.episode + 
+			   " " + this.name;
 	}
 
 }
