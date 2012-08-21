@@ -1,7 +1,13 @@
 package com.ladinc.showrss.activitys;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.CookieSyncManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,7 +32,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 	EditText uNameEdit;
 	EditText passEdit;
 	LoadingDialog loadingDialog;
-
+	
+	private CheckBox rememberPassword;
 	private Button loginButton;
 	private Button registerButton;
 
@@ -40,6 +48,20 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		this.setupViews();
 		this.setupListeners();
+		this.loadSavedSettings();
+	}
+
+	private void loadSavedSettings() {
+		
+		SharedPreferences settings = this.getPreferences(Context.MODE_PRIVATE);
+		
+		this.username = settings.getString("username", ""); 
+		
+		this.password = settings.getString("password", "");
+		
+		this.uNameEdit.setText(this.username);
+		this.passEdit.setText(this.password);
+		
 	}
 
 	@Override
@@ -76,15 +98,17 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private void setupViews() {
 		loginButton = (Button) this.findViewById(R.id.loginButton);
 		registerButton = (Button) this.findViewById(R.id.registerButton);
-
+		rememberPassword = (CheckBox) this.findViewById(R.id.rememberPasswordCheckbox);
+		
+		uNameEdit = (EditText) this.findViewById(R.id.username);
+		passEdit = (EditText) this.findViewById(R.id.password);
 		loadingDialog = new LoadingDialog(this, getString(R.string.logging_in_));
 	}
 
 	private void setupListeners() {
 		loginButton.setOnClickListener(this);
 		registerButton.setOnClickListener(this);
-		uNameEdit = (EditText) findViewById(R.id.username);
-		passEdit = (EditText) findViewById(R.id.password);
+		rememberPassword.setOnClickListener(this);
 	}
 
 	private void displayToast(String text) {
@@ -136,10 +160,14 @@ public class LoginActivity extends Activity implements OnClickListener {
 					this.password = passEdit.getText().toString();
 	
 					LoginTask login = new LoginTask(this.username, this.password);
+					storeLoginCreds();
 					new LoginToRss().execute(login);
 					break;
 				case R.id.registerButton:
 					changeToRegister();
+					break;
+				case R.id.rememberPasswordCheckbox:
+					displayPasswordWarning();
 					break;
 
 			}
@@ -148,6 +176,40 @@ public class LoginActivity extends Activity implements OnClickListener {
 			displayToast(getString(R.string.no_internet_connection));
 		}
 
+	}
+
+	private void displayPasswordWarning() {
+		
+		//If we got here the checkbox has been clicked
+		if (this.rememberPassword.isChecked())
+		{
+			Intent intent = new Intent(this, DisplayErrorActivity.class);
+			ArrayList<String> errors = new ArrayList<String>();
+			errors.add(getString(R.string.password_string));
+	    	intent.putStringArrayListExtra("errorList", errors);
+	    	intent.putExtra("title", "ShowRss Mobile Message");
+	    	
+	    	startActivityForResult(intent, 2);
+		}
+		
+	}
+
+	private void storeLoginCreds() {
+		Editor settings = this.getPreferences(Context.MODE_PRIVATE).edit();
+		
+		settings.putString("username", this.username);
+		
+		if (this.rememberPassword.isChecked())
+		{
+			settings.putString("password", this.password);
+		}
+		else
+		{
+			settings.putString("password", "");
+		}
+		
+		settings.commit();
+		
 	}
 
 	class LoginToRss extends AsyncTask<LoginTask, Integer, String> {
