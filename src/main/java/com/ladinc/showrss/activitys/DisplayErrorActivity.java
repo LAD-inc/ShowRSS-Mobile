@@ -7,12 +7,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 
-public class DisplayErrorActivity extends Activity {
+public class DisplayErrorActivity extends Activity implements OnClickListener {
 	
 	private TextView errorsText;
+	private Button okButton;
 	List<String> errorsList;
 	
 	
@@ -32,6 +36,7 @@ public class DisplayErrorActivity extends Activity {
 			setContentView(R.layout.error_popup);
 			
 			this.setupViews();
+			this.setupListeners();
 			
 			populateErrors();
 			
@@ -48,9 +53,14 @@ public class DisplayErrorActivity extends Activity {
 		}
 	}
 	
+	private void setupListeners() {
+		okButton.setOnClickListener(this);
+		
+	}
+
 	private void setupViews() {
 		errorsText = (TextView) this.findViewById(R.id.errorText);
-		
+		okButton = (Button) this.findViewById(R.id.okButton);
 	}
 	
 	private void populateErrors()
@@ -59,13 +69,30 @@ public class DisplayErrorActivity extends Activity {
 		String bullet = "&#8226; ";
 		String newLine = " <br/> ";
 		
+		boolean afterFirstLine = false;
 		
 		for (String error : errorsList)
 		{
-			errorsAsHtml = errorsAsHtml + bullet + error + newLine + newLine;
+			if (afterFirstLine)
+			{
+				errorsAsHtml = errorsAsHtml + newLine;
+			}
+			errorsAsHtml = errorsAsHtml + bullet + error + newLine;
+			
+			afterFirstLine = true;
 		}
 		
 		errorsText.setText(Html.fromHtml(errorsAsHtml));
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) 
+		{
+			case R.id.okButton:
+				this.finish();
+		}
+		
 	}
 
 	

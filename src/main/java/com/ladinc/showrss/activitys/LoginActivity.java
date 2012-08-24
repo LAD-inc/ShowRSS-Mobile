@@ -48,7 +48,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		this.setupViews();
 		this.setupListeners();
-		this.loadSavedSettings();
 	}
 
 	private void loadSavedSettings() {
@@ -59,6 +58,12 @@ public class LoginActivity extends Activity implements OnClickListener {
 		
 		this.password = settings.getString("password", "");
 		
+		//If the user has already set a password set the checkbox.
+		if (!this.password.equalsIgnoreCase(""))
+		{
+			this.rememberPassword.setChecked(true);
+		}
+		
 		this.uNameEdit.setText(this.username);
 		this.passEdit.setText(this.password);
 		
@@ -67,24 +72,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	@Override
 	public void onResume() {
 		super.onResume();
-		// TODO: cookie manager is not working yet
-		CookieSyncManager.getInstance().startSync();
-
-		// Calls http request and if user name is present, it is already logged
-		// in
-		// and the and the login screen is not loaded
-		try {
-			if (Utilities.getUserName() != "") {
-				// user is already logged in
-				changeToMenu();
-			} else {
-				displayToast("Please Login");
-			}
-
-		} catch (Exception e) {
-			// Already at login Acitivty
-			e.printStackTrace();
-		}
+		this.loadSavedSettings();
 	}
 
 	@Override

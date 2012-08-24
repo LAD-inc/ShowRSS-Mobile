@@ -53,4 +53,5 @@
 	<string name="no_internet_connection">No Internet Connection</string>
 	<string name="rememberPassword">Remember Password?</string>
 	<string name="password_string">Passwords are stored at the users risk. Please be aware that passwords are currently stored in plain text (within the application). </string>
+	<string name="ok_button">Ok</string>
 </resources>
