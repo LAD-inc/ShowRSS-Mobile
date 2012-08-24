@@ -48,6 +48,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		this.setupViews();
 		this.setupListeners();
+		
+		this.loadSavedSettings();
 	}
 
 	private void loadSavedSettings() {
@@ -72,7 +74,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 	@Override
 	public void onResume() {
 		super.onResume();
-		this.loadSavedSettings();
 	}
 
 	@Override
