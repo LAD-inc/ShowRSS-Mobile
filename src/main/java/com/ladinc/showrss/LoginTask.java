@@ -34,7 +34,7 @@ public class LoginTask {
 		Log.d(TAG, "Attempting to login as: " + this.userName);
 
 		// Should we throw an exception on failed logins?
-		if (!validateUserName(this.password)) {
+		if (!validateUserName(this.userName)) {
 
 			error = "Invalid Login Name";
 			Log.d(TAG, error);
