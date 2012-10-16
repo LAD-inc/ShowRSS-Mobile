@@ -181,18 +181,18 @@ public class YourShows {
 		}
 
 		// Get Has HD Value
-		Pattern p = Pattern.compile("Torrent quality.*value=\"([0-9]{1})\" selected.*Torrent types");
+		Pattern p = Pattern.compile("Torrent quality.*value=\\\"([0-9]{1})\\\" selected.*Torrent types");
 		Matcher m = p.matcher(htmlCode);
 
 		if (m.find())
 			show.setHasHd(Integer.parseInt(m.group(1)));
 
 		// Get has proper value
-		p = Pattern.compile("Torrent types.*value=\"([0-9]{1})\" selected");
+		p = Pattern.compile("Torrent types.*value=\\\"([0-9]{1})\\\" selected");
 		m = p.matcher(htmlCode);
 
 		if (m.find())
-			show.setHasHd(Integer.parseInt(m.group(1)));
+			show.setHasProper(Integer.parseInt(m.group(1)));
 
 		return show;
 
