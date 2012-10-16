@@ -22,8 +22,15 @@ public class LoadingDialog {
 	
 	public void hideLoadingDialog() 
 	{
-		if (dialog.isShowing())
-			dialog.dismiss();
+		try
+		{
+			if (dialog.isShowing())
+				dialog.dismiss();
+		}
+		catch (Exception e)
+		{
+			//do nothing
+		}
 	}
 	
 	public void toggleLoadingDialog(){
