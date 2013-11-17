@@ -250,8 +250,13 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 		protected Show doInBackground(String... selectedShow) {
 			try {
 <<<<<<< HEAD
+<<<<<<< HEAD
 				Show show = getShowSettings(selectedShow[0]);
 				return show;
+=======
+				thisShow = getShowSettings(selectedShow[0]);
+				return thisShow;
+>>>>>>> 073dd85aabd26d4759fbe79465fd9e2b75a33147
 =======
 				thisShow = getShowSettings(selectedShow[0]);
 				return thisShow;
@@ -284,6 +289,9 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 				loadingDialog.hideLoadingDialog();
 
 				populateSetitngs();
+<<<<<<< HEAD
+>>>>>>> 073dd85aabd26d4759fbe79465fd9e2b75a33147
+=======
 >>>>>>> 073dd85aabd26d4759fbe79465fd9e2b75a33147
 			}
 
