@@ -44,7 +44,7 @@ public class LoginTask {
 		// TODO: Get this working
 		// String loginURL = getString(R.string.loginURL);
 
-		String loginURL = "http://showrss.karmorra.info/?cs=login";
+		String loginURL = Utilities.URL + "?cs=login";
 
 		try {
 			// Get the HttpClient and Post Header

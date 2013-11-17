@@ -16,6 +16,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.ladinc.showrss.utilities.HttpClientHelper;
+import com.ladinc.showrss.utilities.Utilities;
 
 public class Register {
 	
@@ -23,8 +24,8 @@ public class Register {
 	public String captchaKey;
 	public String captchaChallengeKey;
 	
-	private final String REGISTER_URL = "http://showrss.karmorra.info/?cs=register";
-	private final String CAPTCHA_INFO_URL = "http://api.recaptcha.net/challenge?k=";
+	private final String REGISTER_URL = Utilities.URL + "?cs=register";
+	private final String CAPTCHA_INFO_URL = "http://www.google.com/recaptcha/api/challenge?k=";
 	private final String CAPTCHA_IMAGE_URL = "http://www.google.com/recaptcha/api/image?c=";
 	
 	

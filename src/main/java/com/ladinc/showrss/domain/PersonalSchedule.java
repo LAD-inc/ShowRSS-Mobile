@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 import com.ladinc.showrss.HtmlCode;
 import com.ladinc.showrss.YourShows;
+import com.ladinc.showrss.utilities.Utilities;
 
 public class PersonalSchedule {
 
@@ -18,8 +19,8 @@ public class PersonalSchedule {
 	public List<Episode> upcomingShows;
 	public List<Episode> airedShows;
 	
-	private static String upcomingShowsUrl = "http://showrss.karmorra.info/?cs=schedule&mode=std&print=std";
-	private static String airedShowsUrl = "http://showrss.karmorra.info/?cs=schedule&mode=std&print=aired";
+	private static String upcomingShowsUrl = Utilities.URL + "?cs=schedule&mode=std&print=std";
+	private static String airedShowsUrl = Utilities.URL + "?cs=schedule&mode=std&print=aired";
 	
 	public String[] upcomingAsArray() {
 		

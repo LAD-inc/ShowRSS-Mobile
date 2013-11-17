@@ -6,11 +6,13 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.ladinc.showrss.utilities.Utilities;
+
 public class AllShows {
 	
 	public static Map<Object,String> allshows;
 	public static Map<Object,String> showNameAsKey;
-	public final static String url = "http://showrss.karmorra.info/?cs=browse";
+	public final static String url = Utilities.URL + "?cs=browse";
 	
 	public static void populateAllShows() throws Exception
 	{

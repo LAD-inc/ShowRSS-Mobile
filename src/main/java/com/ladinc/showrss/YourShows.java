@@ -6,16 +6,20 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.util.Log;
+
 import com.ladinc.showrss.domain.Show;
+import com.ladinc.showrss.utilities.Utilities;
 
 public class YourShows {
 
 	public static List<Show> shows;
 	public static List<Show> availableShows;
-	private static String url = "http://showrss.karmorra.info/?cs=shows";
-	private static String addShowUrl = "http://showrss.karmorra.info/?cs=ajax&m=shows&func=add&show=";
-	private static String deleteShowUrl = "http://showrss.karmorra.info/?cs=ajax&m=shows&func=delete&show=";
-	private static String optsShowUrl = "http://showrss.karmorra.info/?cs=ajax&m=shows&func=opts&show=";
+	private static String url = Utilities.URL + "?cs=shows";
+	private static String addShowUrl = Utilities.URL + "?cs=ajax&m=shows&func=add&show=";
+	private static String deleteShowUrl = Utilities.URL + "?cs=ajax&m=shows&func=delete&show=";
+	private static String optsShowUrl = Utilities.URL + "?cs=ajax&m=shows&func=opts&show=";
+	private static String showSettingsUrl = Utilities.URL + "?cs=ajax&m=opts&show=";
 
 	public static List<Show> getShows() throws Exception {
 		String htmlCode = "";
@@ -170,7 +174,7 @@ public class YourShows {
 	public static Show getShowSettings(String showName) throws Exception {
 		Show show = new Show(showName);
 
-		String settingsUrl = "http://showrss.karmorra.info/?cs=ajax&m=opts&show=" + show.getShowId();
+		String settingsUrl = showSettingsUrl + show.getShowId();
 
 		String htmlCode = "";
 		try {
@@ -181,19 +185,24 @@ public class YourShows {
 		}
 
 		// Get Has HD Value
-		Pattern p = Pattern.compile("Torrent quality.*value=\"([0-9]{1})\" selected.*Torrent types");
+		Pattern p = Pattern.compile("hashd.*value=\"([0-9]{1})\" selected.*hasproper");
 		Matcher m = p.matcher(htmlCode);
 
 		if (m.find())
+		{
+			Log.d("Utilities", "Found HD Value: " +  m.group(1));
 			show.setHasHd(Integer.parseInt(m.group(1)));
-
+		}
+		
 		// Get has proper value
-		p = Pattern.compile("Torrent types.*value=\"([0-9]{1})\" selected");
+		p = Pattern.compile("hasproper.*value=\"([0-9]{1})\" selected");
 		m = p.matcher(htmlCode);
 
 		if (m.find())
-			show.setHasHd(Integer.parseInt(m.group(1)));
-
+		{
+			Log.d("Utilities", "Found Repack Value: " +  m.group(1));
+			show.setHasProper(Integer.parseInt(m.group(1)));
+		}
 		return show;
 
 	}

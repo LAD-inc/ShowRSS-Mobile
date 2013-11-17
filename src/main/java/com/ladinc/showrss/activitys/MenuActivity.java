@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,14 +28,22 @@ public class MenuActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main);
+		
+		Bundle bundle = getIntent().getExtras();
+		
+		
 
 		userName = (TextView) findViewById(R.id.loggedInAsName);
-		try {
-			userName.setText(Utilities.getUserName());
-		} catch (Exception e) {
-			switchActivity(this, LoginActivity.class);
-
-		}
+		
+		userName.setText(bundle.get("user").toString());
+		
+//		try {
+//			userName.setText(Utilities.getUserName());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			switchActivity(this, LoginActivity.class);
+//
+//		}
 
 		this.setupViews();
 		this.setupListeners();

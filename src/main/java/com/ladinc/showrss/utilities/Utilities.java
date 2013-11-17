@@ -10,11 +10,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 public class Utilities {
 
-	public static String URL = "http://showrss.karmorra.info/";
-	public static String REGEX_EXTRACT_USER_NAME = "Hi there, <strong>([^<]+)</strong>";
+	public static String URL = "http://showrss.info/";
+	public static String REGEX_EXTRACT_USER_NAME = "Welcome, <strong>([^<]+)</strong>";
 
 	/**
 	 * Checks if the android device is online
@@ -64,10 +65,16 @@ public class Utilities {
 		Matcher m = p.matcher(htmlCode);
 
 		if (m.find())
+		{
+			Log.d("Utilities", "Found User Name: " +  m.group(1));
 			return m.group(1);
+		}
 		else
+		{
+			Log.d("Utilities", "Failed to find username");
 			return "";
 
+		}
 	}
 
 }

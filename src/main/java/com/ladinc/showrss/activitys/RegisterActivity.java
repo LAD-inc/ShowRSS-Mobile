@@ -130,6 +130,9 @@ public class RegisterActivity extends Activity implements OnClickListener{
 		CookieSyncManager.getInstance().sync();
 
 		Intent myIntent = new Intent(this, MenuActivity.class);
+		
+		myIntent.putExtra("user", this.username);
+		
 		try {
 			startActivity(myIntent);
 		} finally {

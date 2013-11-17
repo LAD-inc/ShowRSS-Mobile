@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="loginURL">http://showrss.karmorra.info/?cs=login</string>
+    <string name="loginURL">http://showrss.info/?cs=login</string>
     <string name="hello">Yo cool new show rss mobile app woo</string>
     <string name="app_name">ShowRSS Mobile</string>
     <string name="username">Username: </string>
@@ -29,7 +29,7 @@
 	<string name="aboutShowRSSText">showRSS is a service that allows you to keep track of your favorite TV shows. You pick your favorite shows from the list, then you subscribe to your feed. You can subscribe with your torrent client, so latest episodes are automatically downloaded, or add the feed to your browser or feed reader if you want to keep track of latest torrents. Other features also include tracking of your show schedule, so you know exactly when a new episode will air.</string>
 	
 	<string name="aboutThisApp">About This App</string>
-	<string name="aboutThisAppText">The purpose of this app is to provide a native android interface to the showrss.karmorra.info website. This is an unoffical 3rd party app, the developers have no association with the showrss.kamorra.info website. All data for this app is being provided by the showrss website. If you enjoy this app please support the showrss website, as there would be no app without it. For more info on how to donate please visit: http://showrss.karmorra.info/?cs=help&amp;m=donate</string>
+	<string name="aboutThisAppText">The purpose of this app is to provide a native android interface to the showrss.info website. This is an unofficial 3rd party app, the developers have no association with the showrss.info website. All data for this app is being provided by the showrss website. If you enjoy this app please support the showrss website, as there would be no app without it. For more info on how to donate please visit: http://showrss.info/?cs=help&amp;m=donate</string>
 	
 	
     <string name="addNewShow">Add New Shows</string>
@@ -46,12 +46,12 @@
 	    <item>Both</item>
 	</string-array>
 	
-	<string name="loadSchedule">Loading Schedule...</string>
+	<string name="loadSchedule">Loading Schedule…</string>
 	
 	<string name="showConfigButton">Save Settings</string>
-	<string name="logging_in_">Logging in...</string>
+	<string name="logging_in_">Logging in…</string>
 	<string name="no_internet_connection">No Internet Connection</string>
 	<string name="rememberPassword">Remember Password?</string>
 	<string name="password_string">Passwords are stored at the users risk. Please be aware that passwords are currently stored in plain text (within the application). </string>
-	<string name="ok_button">Ok</string>
+	<string name="ok_button">OK</string>
 </resources>

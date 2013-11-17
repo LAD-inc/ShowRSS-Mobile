@@ -258,9 +258,10 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 			} else {
 				Log.d(TAG, "Got settings for " + show.getShowName());
 
-				loadingDialog.hideLoadingDialog();
 
 				populateSetitngs(show);
+				
+				loadingDialog.hideLoadingDialog();
 			}
 
 		}
