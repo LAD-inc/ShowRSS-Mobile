@@ -36,6 +36,8 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 	boolean inSD = false;
 
 	LoadingDialog loadingDialog;
+	
+	Show thisShow;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -141,7 +143,9 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
 
-	private void populateSetitngs(Show show) {
+	private void populateSetitngs() 
+	{
+		Show show = this.thisShow;
 		boolean repack = false;
 
 		if (show.getHasProper() == 1)
@@ -151,6 +155,12 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 
 		showRepackCheckbox.setChecked(repack);
 
+	}
+	
+	public Show getShowSettings(String showName) throws Exception
+	{
+		this.thisShow = new Show( YourShows.getShowSettings(showName));
+		return this.thisShow;
 	}
 
 	// Subclass for deleting shows
@@ -239,7 +249,7 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 		@Override
 		protected Show doInBackground(String... selectedShow) {
 			try {
-				Show show = YourShows.getShowSettings(selectedShow[0]);
+				Show show = getShowSettings(selectedShow[0]);
 				return show;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -258,8 +268,10 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 			} else {
 				Log.d(TAG, "Got settings for " + show.getShowName());
 
-
-				populateSetitngs(show);
+				
+				thisShow = show;
+				
+				populateSetitngs();
 				
 				loadingDialog.hideLoadingDialog();
 			}

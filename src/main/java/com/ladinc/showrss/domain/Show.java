@@ -24,6 +24,14 @@ public class Show {
 		this.showName = showName;
 		this.showId = showId;
 	}
+	
+	public Show(Show otherShow) {
+		super();
+		this.showName = otherShow.showName;
+		this.showId = otherShow.showId;
+		this.hasHd = otherShow.hasHd;
+		this.hasProper = otherShow.hasProper;
+	}
 
 	/**
 	 * Constructor takes in show's name, the id is resolved from AllShows

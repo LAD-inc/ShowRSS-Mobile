@@ -54,4 +54,17 @@
 	<string name="rememberPassword">Remember Password?</string>
 	<string name="password_string">Passwords are stored at the users risk. Please be aware that passwords are currently stored in plain text (within the application). </string>
 	<string name="ok_button">OK</string>
+	
+	<string-array name="feed_qualityTypes">
+	    <item>As per show\'s settings</item>
+	    <item>All SD</item>
+	    <item>All HD</item>
+	    <item>All available</item>
+	</string-array>
+	<string-array name="feed_repackTypes">
+	    <item>As per show\'s settings</item>
+	    <item>Do not iclude repacks</item>
+	    <item>Include repacks</item>
+	</string-array>
+	    <string name="generateButton">Generate</string>
 </resources>
