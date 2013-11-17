@@ -249,8 +249,13 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 		@Override
 		protected Show doInBackground(String... selectedShow) {
 			try {
+<<<<<<< HEAD
 				Show show = getShowSettings(selectedShow[0]);
 				return show;
+=======
+				thisShow = getShowSettings(selectedShow[0]);
+				return thisShow;
+>>>>>>> 073dd85aabd26d4759fbe79465fd9e2b75a33147
 			} catch (Exception e) {
 				e.printStackTrace();
 				// I know we don't like returning null, but not sure what else
@@ -268,12 +273,18 @@ public class ShowConfigActivity extends Activity implements OnItemSelectedListen
 			} else {
 				Log.d(TAG, "Got settings for " + show.getShowName());
 
+<<<<<<< HEAD
 				
 				thisShow = show;
 				
 				populateSetitngs();
 				
 				loadingDialog.hideLoadingDialog();
+=======
+				loadingDialog.hideLoadingDialog();
+
+				populateSetitngs();
+>>>>>>> 073dd85aabd26d4759fbe79465fd9e2b75a33147
 			}
 
 		}

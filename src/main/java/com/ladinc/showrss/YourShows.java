@@ -186,7 +186,11 @@ public class YourShows {
 
 		// Get Has HD Value
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Pattern p = Pattern.compile("hashd.*value=\"([0-9]{1})\" selected.*hasproper");
+=======
+		Pattern p = Pattern.compile("Torrent quality.*value=\\\"([0-9]{1})\\\" selected.*Torrent types");
+>>>>>>> 073dd85aabd26d4759fbe79465fd9e2b75a33147
 =======
 		Pattern p = Pattern.compile("Torrent quality.*value=\\\"([0-9]{1})\\\" selected.*Torrent types");
 >>>>>>> 073dd85aabd26d4759fbe79465fd9e2b75a33147
@@ -199,6 +203,7 @@ public class YourShows {
 		}
 		
 		// Get has proper value
+<<<<<<< HEAD
 <<<<<<< HEAD
 		p = Pattern.compile("hasproper.*value=\"([0-9]{1})\" selected");
 		m = p.matcher(htmlCode);
@@ -213,6 +218,12 @@ public class YourShows {
 		m = p.matcher(htmlCode);
 
 		if (m.find())
+=======
+		p = Pattern.compile("Torrent types.*value=\\\"([0-9]{1})\\\" selected");
+		m = p.matcher(htmlCode);
+
+		if (m.find())
+>>>>>>> 073dd85aabd26d4759fbe79465fd9e2b75a33147
 			show.setHasProper(Integer.parseInt(m.group(1)));
 
 >>>>>>> 073dd85aabd26d4759fbe79465fd9e2b75a33147
