@@ -1,13 +1,12 @@
-<linearlayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <expandablelistview
-        android:id="@+id/android:list"
+    <ListView
+        android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:drawSelectorOnTop="true" />
 
-    </expandablelistview>
-
-</linearlayout>
+</LinearLayout>

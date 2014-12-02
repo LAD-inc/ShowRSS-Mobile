@@ -99,7 +99,8 @@ public class LoginTask {
 	private boolean validateUserName(String user) {
 		// "between 2 and 12" sounds like 3-11 but im airing on the side of
 		// caution sayings its 2-12
-		return (user.length() >= 2 && user.length() <= 12);
+		//return (user.length() >= 2 && user.length() <= 12);
+		return true;
 	}
 
 }

@@ -31,6 +31,8 @@
 	<string name="aboutThisApp">About This App</string>
 	<string name="aboutThisAppText">The purpose of this app is to provide a native android interface to the showrss.info website. This is an unofficial 3rd party app, the developers have no association with the showrss.info website. All data for this app is being provided by the showrss website. If you enjoy this app please support the showrss website, as there would be no app without it. For more info on how to donate please visit: http://showrss.info/?cs=help&amp;m=donate</string>
 	
+	<string name="supportOrFeedback">Support or Feedback</string>
+	<string name="supportOrFeedbackText">If you are having any issues with the app or have any suggestions of feedback please get in touch! Email: bcg.ladinc@gmail.com Twitter: @witnessmenow</string>
 	
     <string name="addNewShow">Add New Shows</string>
     <string name="addNewShows">Add New Shows:</string>

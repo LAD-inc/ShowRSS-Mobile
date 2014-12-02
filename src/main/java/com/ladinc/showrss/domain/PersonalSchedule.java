@@ -80,7 +80,7 @@ public class PersonalSchedule {
 		Matcher m = p.matcher(htmlCode);
 
 		this.airedShows = new ArrayList<Episode>();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy"); 
 
 		List<Date> dates = new ArrayList<Date>();
 		
